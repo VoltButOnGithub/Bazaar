@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/register', [UserController::class, 'create'])->name('register');
+Route::post('/register', [UserController::class, 'store']);
 
 Route::get('/ad/create', [AdController::class, 'showCreateForm'])->name('advertisement.create');

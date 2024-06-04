@@ -6,13 +6,10 @@
     <title>@yield('title', 'Bazaar')</title>
     @vite('resources/css/app.css')
 </head>
-<body class="bg-white">
-    @include('partials.header')
-
-    <div class="container mx-auto mt-8">
+<body class="flex flex-col min-h-screen justify-between m-0 p-0 bg-azg-gray">
+    <main class="flex-grow flex items-center justify-center">
         @yield('content')
-    </div>
-    @include('partials.footer')
-@vite('resources/js/app.js')
+    </main>
+    @vite('resources/js/app.js')
 </body>
 </html>

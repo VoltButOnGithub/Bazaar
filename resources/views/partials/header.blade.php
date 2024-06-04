@@ -5,10 +5,12 @@
         </div>
 
         <div class="flex space-x-4">
+            @if(!Auth::check())
             <a href="{{ route('login') }}" class="text-gray-300 hover:text-white flex items-center px-4 py-3 rounded-md text-sm font-medium">
                 <x-heroicon-s-user class="w-5 h-5 mr-2"/>
                 {{__('global.login')}}
             </a>
+            @endif
             <a href="{{ route('advertisement.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white flex items-center px-4 py-3 rounded-md text-sm font-medium">
                 <x-heroicon-s-pencil-square class="w-5 h-5 mr-2"/>
                 {{__('global.create_ad')}}

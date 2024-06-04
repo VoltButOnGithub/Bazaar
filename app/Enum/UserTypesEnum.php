@@ -4,9 +4,9 @@ namespace App\Enum;
 
 enum UserTypesEnum: int
 {
-    case BUSINESS = 0;
-    case INDIVIDUAL = 1;
-    case INDIVIDUAL_ADVERTISER = 2;
+    case INDIVIDUAL = 0;
+    case INDIVIDUAL_ADVERTISER = 1;
+    case BUSINESS = 2;
 
     public function isBusiness(): bool
     {
@@ -21,5 +21,32 @@ enum UserTypesEnum: int
     public function isIndividualAdvertiser(): bool
     {
         return $this === self::INDIVIDUAL_ADVERTISER;
+    }
+
+    public function getLabel(): ?string
+    {
+        return match ($this) {
+            self::BUSINESS => __('global.business'),
+            self::INDIVIDUAL => __('global.individual'),
+            self::INDIVIDUAL_ADVERTISER => __('global.individual_advertiser'),
+        };
+    }
+
+    public function getDescription(): ?string
+    {
+        return match ($this) {
+            self::BUSINESS => __('global.business_description'),
+            self::INDIVIDUAL => __('global.individual_description'),
+            self::INDIVIDUAL_ADVERTISER => __('global.individual_advertiser_description'),
+        };
+    }
+
+    public function getIcon(): ?string
+    {
+        return match ($this) {
+            self::BUSINESS => 'heroicon-s-building-storefront',
+            self::INDIVIDUAL => 'heroicon-s-user',
+            self::INDIVIDUAL_ADVERTISER => 'heroicon-s-megaphone',
+        };
     }
 }

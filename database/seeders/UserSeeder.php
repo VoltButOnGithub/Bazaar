@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Business',
+            'username' => 'Business',
             'email' => 'Business@business.com',
             'password' => Hash::make('password'),
             'type' => UserTypesEnum::BUSINESS,
@@ -23,6 +24,7 @@ class UserSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Individual',
+            'username' => 'Individual',
             'email' => 'individual@individual.com',
             'password' => Hash::make('password'),
             'type' => UserTypesEnum::INDIVIDUAL,
@@ -30,6 +32,7 @@ class UserSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Advertiser',
+            'username' => 'Advertiser',
             'email' => 'advertiser@advertiser.com',
             'password' => Hash::make('password'),
             'type' => UserTypesEnum::INDIVIDUAL_ADVERTISER,
