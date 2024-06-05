@@ -23,7 +23,7 @@ class Ad extends Model
     protected $casts = [
         'type' => AdTypesEnum::class,
         'name' => 'string',
-        'message' => 'string',
+        'description' => 'string',
         'price' => 'decimal:2',
     ];
 

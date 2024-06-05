@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\LangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
@@ -24,7 +25,16 @@ Route::get('/', function () {
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::post('/register', [UserController::class, 'store']);
 
-Route::get('/ad/create', [AdController::class, 'showCreateForm'])->name('advertisement.create');
+Route::get('/profile/{id}', [UserController::class, 'showProfile'])->name('profile');
+Route::get('/settings', [UserController::class, 'showSettings'])->name('settings');
+
+Route::post('/language', [LangController::class, 'changeLang'])->name('changeLang');
+
+Route::get('/ad/create', [AdController::class, 'create'])->name('advertisement.create');
+Route::post('/ad/create', [AdController::class, 'store']);
+Route::get('/ad/{id}', [AdController::class, 'show']);

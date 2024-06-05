@@ -3,17 +3,21 @@
 return [
     'bazaar' => 'Bazaar',
     'login' => 'Login',
+    'logout' => 'Log out',
+    'settings' => 'Settings',
     'register' => 'Register',
-    'copyright' => 'Copyright, idk , help',
 
     // User
     'user' => 'User',
+    'profile' => 'Profile',
     'name' => 'Name',
+    'name_description' => 'The name that is shown to others on the platform.',
     'username' => 'Username',
-    'email' => 'Email',
+    'username_description' => 'The username that is used to login.',
     'url' => 'URL',
-    'email_address' => 'Email Address',
+    'url_description' => 'The address used to access your page.',
     'password' => 'Password',
+    'password_description' => 'The password you use to login.',
     'remember_me' => 'Remember me',
     'no_account_yet' => 'Don\'t have an account yet?',
     'start_here' => 'Start here',
@@ -32,14 +36,22 @@ return [
     'ad' => 'Ad',
     'create_ad' => 'Post ad',
     'review' => 'Review',
+    'i_want_to_post_a' => 'I want to post a',
 
     // Sale
     'sale' => 'Sale',
+    'sale_description' => 'Sell something for your price',
 
     // Auction
+    'auction' => 'Auction',
+    'auction_description' => 'Let people bid',
     'bid' => 'Bid',
 
     // Rental
     'rental' => 'Rental',
-    'lease' => 'Lease'
+    'rental_description' => 'Rent something out',
+    'lease' => 'Lease',
+
+    'en' => 'English',
+    'nl' => 'Dutch',
 ];

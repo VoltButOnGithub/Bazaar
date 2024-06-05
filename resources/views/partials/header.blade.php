@@ -1,20 +1,46 @@
-<nav class="bg-gray-700 p-4">
-    <div class="container mx-auto flex justify-between items-center">
-        <div class="text-white text-lg font-bold">
-            <a href="{{ url('/') }}">{{__('global.bazaar')}}</a>
+<nav class="bg-gray-400 p-4">
+    <div class="container mx-auto flex items-center justify-between">
+        <div class="text-lg font-bold text-black">
+            <a href="{{ url('/') }}">{{ __('global.bazaar') }}</a>
         </div>
 
         <div class="flex space-x-4">
-            @if(!Auth::check())
-            <a href="{{ route('login') }}" class="text-gray-300 hover:text-white flex items-center px-4 py-3 rounded-md text-sm font-medium">
-                <x-heroicon-s-user class="w-5 h-5 mr-2"/>
-                {{__('global.login')}}
-            </a>
+
+            @if (!Auth::check())
+                <x-nav.menu-button :href="route('login')" icon="heroicon-s-user" :text="__('global.login')" color='blue' />
+            @else
+                <x-nav.menu-button :href="route('logout')" icon="heroicon-s-arrow-left-start-on-rectangle"
+                                   :text="__('global.logout')" />
+                <x-nav.menu-button :href="route('settings')" icon="heroicon-s-cog-6-tooth" :text="__('global.settings')" />
+                <x-nav.menu-button :href="route('profile', Auth::user()->id)" icon="heroicon-s-user" :text="__('global.profile')" />
+                <x-nav.menu-button :href="route('advertisement.create')" icon="heroicon-s-pencil-square" :text="__('global.create_ad')" color='blue' />
             @endif
-            <a href="{{ route('advertisement.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white flex items-center px-4 py-3 rounded-md text-sm font-medium">
-                <x-heroicon-s-pencil-square class="w-5 h-5 mr-2"/>
-                {{__('global.create_ad')}}
-            </a>
+            <form id="languageForm" action="{{ route('changeLang') }}" method="post">
+                @csrf
+                <select name="lang"
+                        class="flex cursor-pointer items-center rounded-md bg-gray-600 px-3 py-3 text-sm font-medium text-white hover:bg-gray-700"
+                        onchange="submitForm()">
+
+                    @foreach (config('app.locales') as $locale)
+                        <option value={{ $locale }}
+                                @if ($locale == App::currentLocale()) selected @endif> {{ __('global.' . $locale) }}</option>
+                    @endforeach
+                </select>
+            </form>
         </div>
     </div>
 </nav>
+
+<script>
+    function showMenu() {
+        document.getElementById('menu').classList.remove('hidden');
+    }
+
+    function hideMenu() {
+        document.getElementById('menu').classList.add('hidden')
+    }
+
+    function submitForm() {
+        document.getElementById("languageForm").submit();
+    }
+</script>

@@ -17,19 +17,28 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required',
             'password' => 'required',
         ]);
-
-        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
+        
+        if (Auth::attempt($request->only('username', 'password'), $request->filled('remember'))) {
             return redirect()->intended('/');
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->withInput($request->only('email'));
+            'login' => __('auth.failed'),
+        ])->withInput($request->only('username'));
+    }
+
+    public function logout(): RedirectResponse
+    {
+        if (!auth()->check()) {
+            return redirect('/');
+        }
+        Auth::logout();
+        return redirect('/');
     }
 }
