@@ -18,6 +18,8 @@ return [
     'url_description' => 'The address used to access your page.',
     'password' => 'Password',
     'password_description' => 'The password you use to login.',
+    'profile_picture' => 'Profile picture',
+    'profile_picture_description' => 'The image that is shown on your profile.',
     'remember_me' => 'Remember me',
     'no_account_yet' => 'Don\'t have an account yet?',
     'start_here' => 'Start here',

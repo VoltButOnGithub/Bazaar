@@ -2,10 +2,9 @@
 
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\LangController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

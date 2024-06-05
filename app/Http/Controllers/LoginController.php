@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class LoginController extends Controller
 {
@@ -23,7 +24,7 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        
+
         if (Auth::attempt($request->only('username', 'password'), $request->filled('remember'))) {
             return redirect()->intended('/');
         }
@@ -35,10 +36,11 @@ class LoginController extends Controller
 
     public function logout(): RedirectResponse
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return redirect('/');
         }
         Auth::logout();
+
         return redirect('/');
     }
 }

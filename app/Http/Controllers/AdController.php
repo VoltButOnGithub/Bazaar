@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Enum\AdTypesEnum;
 use App\Models\Ad;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class AdController extends Controller
 {
     public function create(): View|RedirectResponse
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return redirect('login');
         }
 
@@ -37,7 +37,7 @@ class AdController extends Controller
         return redirect()->route('home');
     }
 
-    public function show(int $id) 
+    public function show(int $id)
     {
         return response()->json([Ad::find($id)]);
     }
