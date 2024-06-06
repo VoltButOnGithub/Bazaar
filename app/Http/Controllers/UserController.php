@@ -19,7 +19,7 @@ class UserController extends Controller
             return redirect('/');
         }
 
-        return view('register');
+        return view('account.register');
     }
 
     public function store(RegisterRequest $request): RedirectResponse

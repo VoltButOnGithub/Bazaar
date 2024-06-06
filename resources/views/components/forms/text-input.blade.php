@@ -12,7 +12,7 @@
 <div id="{{ $id }}" class="{{ $classes }} mb-4">
     <label id="{{ $id }}Label" for="{{ $for }}"
            class="text-wrap block w-72 text-sm font-bold text-gray-700">{{ $label }}</label>
-    <p id="{{ $id }}Description" class="text-wrap mb-2 w-72 text-xs">{{ $description }}</p>
+    <p id="{{ $id }}Description" class="mb-2 text-wrap w-72 text-xs">{{ $description }}</p>
     <div class="flex">
         @if ($prefix)
             <span

@@ -6,6 +6,14 @@ return [
     'logout' => 'Log out',
     'settings' => 'Settings',
     'register' => 'Register',
+    'search' => 'Search...',
+    'newest' => 'Newest',
+    'oldest' => 'Oldest',
+    'cheapest' => 'Cheapest',
+    'most_expensive' => 'Most expensive',
+
+    'all_categories' => 'All categories',
+    'apply_filters' => 'Apply filters',
 
     // User
     'user' => 'User',
@@ -36,6 +44,7 @@ return [
 
     // Ad
     'ad' => 'Ad',
+    'description' => 'Description',
     'related_ads' => 'Related ads',
     'related_ads_description' => 'Ads related to this ad.',
     'create_ad' => 'Post ad',
@@ -44,20 +53,24 @@ return [
 
     // Sale
     'sale' => 'Sale',
+    'sale_buy' => 'Buy',
     'sale_description' => 'Sell something for your price',
 
     // Auction
     'auction' => 'Auction',
+    'auction_buy' => 'Bid',
     'auction_description' => 'Let people bid',
     'bid' => 'Bid',
 
     // Rental
     'rental' => 'Rental',
+    'rental_buy' => 'Rent',
     'rental_description' => 'Rent something out',
     'lease' => 'Lease',
 
     // Errors
     'no_image_placeholder' => 'https://placehold.co/100?text=No+image&font=roboto',
+    'no_images_placeholder' => 'https://placehold.co/200?text=No+images&font=roboto',
     'error_try_again' => 'Something went wrong, try again.',
     'too_many_images' => 'You can\'t upload more than :amount images!',
 

@@ -16,7 +16,7 @@
         <p id="{{ $id }}Description" class="mb-2 text-warp w-72 text-xs font-normal">{{ $description }}</p>
         <div class="flex w-72 overflow-x-scroll">
             @for ($i = 0; $i < $amount; $i++)
-                <img id="previewImage{{ $id }}{{ $i }}" class="h-24 w-24 rounded-lg"
+                <img id="previewImage{{ $id }}{{ $i }}" class="h-24 object-contain rounded-lg"
                      src="https://placehold.co/100x100?text=Click+to\n+upload+image" />
             @endfor
         </div>

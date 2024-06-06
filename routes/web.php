@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -17,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
@@ -34,7 +31,11 @@ Route::get('/settings', [UserController::class, 'showSettings'])->name('settings
 
 Route::post('/language', [LangController::class, 'changeLang'])->name('changeLang');
 
-Route::get('/ad/create', [AdController::class, 'create'])->name('advertisement.create');
+Route::get('/ad/create', [AdController::class, 'create'])->name('ad.create');
 Route::post('/ad/create', [AdController::class, 'store']);
 Route::get('/ad/{id}', [AdController::class, 'show'])->name('ad');
-Route::get('/ads', [AdController::class, 'list'])->name('ads');
+
+Route::get('/favourite/{id}', [FavouriteController::class, 'favourite'])->name('ad.favourite');
+Route::get('/unfavourite/{id}', [FavouriteController::class, 'unfavourite'])->name('ad.unfavourite');
+
+Route::get('/', [AdController::class, 'index'])->name('ads');

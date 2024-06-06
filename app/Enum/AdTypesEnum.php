@@ -41,6 +41,15 @@ enum AdTypesEnum: int
         };
     }
 
+    public function getBuyAction(): ?string
+    {
+        return match ($this) {
+            self::SALE => __('global.sale_buy'),
+            self::AUCTION => __('global.auction_buy'),
+            self::RENTAL => __('global.rental_buy'),
+        };
+    }
+
     public function getIcon(): ?string
     {
         return match ($this) {

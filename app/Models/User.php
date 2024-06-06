@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enum\UserTypesEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -51,9 +52,9 @@ class User extends Authenticatable
         return $this->hasMany(Ad::class);
     }
 
-    public function favourites(): HasMany
+    public function favourites(): BelongsToMany
     {
-        return $this->hasMany(Ad::class);
+        return $this->belongsToMany(Ad::class, 'favourites' ,'user_id', 'ad_id');
     }
 
     public function reviews(): HasMany
@@ -64,5 +65,10 @@ class User extends Authenticatable
     public function leases(): HasMany
     {
         return $this->hasMany(Lease::class);
+    }
+
+    public function hasFavourited(int $id): bool 
+    {
+        return $this->favourites()->where('ad_id', $id)->exists();
     }
 }

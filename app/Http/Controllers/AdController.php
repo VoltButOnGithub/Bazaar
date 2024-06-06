@@ -9,7 +9,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+
+use function PHPUnit\Framework\isNull;
 
 class AdController extends Controller
 {
@@ -18,7 +21,7 @@ class AdController extends Controller
         if (!auth()->check()) {
             return redirect('login');
         }
-        $adTypeKeys = \App\Enum\AdTypesEnum::getKeys();
+        $adTypeKeys = AdTypesEnum::getKeys();
         $fieldIds = ['name', 'description', 'price', 'image'];
 
         $relatedAds = auth()->user()->ads()->get();
@@ -31,7 +34,7 @@ class AdController extends Controller
                 $adInputDescriptions[$key . $id] = __($key . '.' . $id . '_description');
             }
         }
-        return view('create_ad', ['relatedAds' => $relatedAds, 'adTypeKeys' => $adTypeKeys, 'adInputLabels' => $adInputLabels, 'adInputDescriptions' => $adInputDescriptions, 'fieldIds' => $fieldIds]);
+        return view('ad.create', ['relatedAds' => $relatedAds, 'adTypeKeys' => $adTypeKeys, 'adInputLabels' => $adInputLabels, 'adInputDescriptions' => $adInputDescriptions, 'fieldIds' => $fieldIds]);
     }
 
     public function store(StoreAdRequest $request): RedirectResponse|View
@@ -70,12 +73,46 @@ class AdController extends Controller
         if (!$ad) {
             abort(404, 'Ad not found');
         }
-        return view('ad', ['ad' => $ad]);
+        return view('ad.details', ['ad' => $ad]);
     }
 
-    public function list()
+    public function index(Request $request): View
     {
-        $ads = Ad::all();
-        return view('ad_list', ['ads' => $ads]);
+        $query = Ad::query();
+        $request->flash();
+
+        if (!is_null($request->input('search'))) {
+            $query->where('name', 'like', '%' . $request->input('search', '') . '%');
+        }
+
+        if (!is_null($request->input('sort_by'))) {
+            switch ($request->input('sort_by', 'newest')) {
+                case 'newest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'oldest':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'cheapest':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'most_expensive':
+                    $query->orderBy('price', 'desc');
+                    break;
+                default:
+                    $query->orderBy('created_at', 'desc');
+                    break;
+            }
+        }
+
+        $ad_type = $request->input('ad_type', 'all');
+        if ($ad_type != 'all') {
+            $query->where('type', $ad_type);
+        }
+
+        return view('ad.index', [
+            'ads' => $query->paginate(5),
+            'ad_type' => $ad_type,
+        ]);
     }
 }

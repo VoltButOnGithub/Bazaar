@@ -15,7 +15,7 @@ class LoginController extends Controller
             return redirect('/');
         }
 
-        return view('login');
+        return view('account.login');
     }
 
     public function login(Request $request): RedirectResponse

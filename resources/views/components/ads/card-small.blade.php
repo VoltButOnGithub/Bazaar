@@ -4,7 +4,7 @@
     <img src="{{ $ad->images ? Storage::url($ad->images[0]) : __('global.no_image_placeholder') }}" class="mb-4 object-contain w-64 h-32 rounded" />
     <div>
         <div class='flex justify-between'>
-            <h2 class="mb-2 text-xl font-semibold border-gray-500">{{ $ad->name }}</h2>
+            <h2 class="mb-2 text-l font-bold border-gray-500">{{ $ad->name }}</h2>
             @if($ad->type->isRental())
             <div class="flex items-center">
                 <span class="ml-1">{{ $ad->rating }}</span>
@@ -13,8 +13,9 @@
             </div>
             @endif
         </div>
-        
-        <h2 class="mb-2 text-base font-semibold border-gray-500">€ {{ $ad->price }}</h2>
-        
+        <div class='flex justify-between' >
+            <h2 class="mb-2 text-base font-semibold border-gray-500">€ {{ $ad->price }}</h2>
+            <x-dynamic-component :component="$ad->type->getIcon()" class="mr-2 h-6 w-6" />
+        </div>
     </div>
 </a>
