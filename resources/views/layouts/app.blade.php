@@ -8,12 +8,16 @@
     @vite('resources/css/app.css')
 </head>
 
-<body class="bg-white">
-    @include('partials.header')
+<body class="overflow-y-scroll bg-white">
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        @include('partials.header')
+    </header>
     <main class="flex flex-grow items-center justify-center">
         @yield('content')
     </main>
-    @include('partials.footer')
+    <footer>
+        @include('partials.footer')
+    </footer>
     @vite('resources/js/app.js')
 </body>
 

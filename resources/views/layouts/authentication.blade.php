@@ -10,6 +10,7 @@
 
 <body class="bg-azg-gray m-0 flex min-h-screen flex-col justify-between overflow-y-scroll p-0">
 
+<header class="sticky top-0 z-50 bg-white shadow-md">
     <nav class="bg-gray-400 p-4">
         <div class="container mx-auto flex items-center justify-between">
             <div class="text-lg font-bold text-black">
@@ -32,6 +33,7 @@
             </div>
         </div>
     </nav>
+</header>
 
     <main class="flex flex-grow items-center justify-center">
         @yield('content')

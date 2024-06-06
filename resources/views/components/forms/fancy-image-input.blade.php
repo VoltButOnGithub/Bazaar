@@ -7,9 +7,9 @@
            accept="image/*"
            value="{{ old('image') }}"
            class="@error('image') border-red-500 @enderror hidden w-full rounded border px-3 py-2 text-gray-700 shadow focus:border-blue-400">
-    <label for="image" class="block cursor-pointer rounded text-sm font-bold text-gray-700">
+    <label for="image" class="block cursor-pointer rounded text-sm text-wrap w-72 font-bold text-gray-700">
         {{ $label }}
-        <p class="mb-2 text-xs font-normal">{{ $description }}</p>
+        <p class="mb-2 text-xs text-wrap w-72 font-normal">{{ $description }}</p>
         <img id="previewImage" class="h-24 w-24 rounded-lg"
              src="https://placehold.co/100x100?text=Click+to\n+upload+image" />
     </label>

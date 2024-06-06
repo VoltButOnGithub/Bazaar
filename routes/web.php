@@ -36,4 +36,5 @@ Route::post('/language', [LangController::class, 'changeLang'])->name('changeLan
 
 Route::get('/ad/create', [AdController::class, 'create'])->name('advertisement.create');
 Route::post('/ad/create', [AdController::class, 'store']);
-Route::get('/ad/{id}', [AdController::class, 'show']);
+Route::get('/ad/{id}', [AdController::class, 'show'])->name('ad');
+Route::get('/ads', [AdController::class, 'list'])->name('ads');

@@ -1,4 +1,4 @@
-@props(['id', 'name', 'label', 'options' => []])
+@props(['id', 'name', 'label','options' => []])
 
 <div class="mb-4">
     <label for="{{ $name }}" class="mb-2 mr-2 block text-sm font-bold text-gray-700">{{ $label }}</label>

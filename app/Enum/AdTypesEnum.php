@@ -44,9 +44,9 @@ enum AdTypesEnum: int
     public function getIcon(): ?string
     {
         return match ($this) {
-            self::SALE => 'heroicon-s-building-storefront',
-            self::AUCTION => 'heroicon-s-user',
-            self::RENTAL => 'heroicon-s-megaphone',
+            self::SALE => 'heroicon-s-currency-euro',
+            self::AUCTION => 'heroicon-s-megaphone',
+            self::RENTAL => 'heroicon-s-calendar',
         };
     }
 

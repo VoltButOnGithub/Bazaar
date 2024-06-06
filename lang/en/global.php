@@ -36,6 +36,8 @@ return [
 
     // Ad
     'ad' => 'Ad',
+    'related_ads' => 'Related ads',
+    'related_ads_description' => 'Ads related to this ad.',
     'create_ad' => 'Post ad',
     'review' => 'Review',
     'i_want_to_post_a' => 'I want to post a',
@@ -54,6 +56,12 @@ return [
     'rental_description' => 'Rent something out',
     'lease' => 'Lease',
 
+    // Errors
+    'no_image_placeholder' => 'https://placehold.co/100?text=No+image&font=roboto',
+    'error_try_again' => 'Something went wrong, try again.',
+    'too_many_images' => 'You can\'t upload more than :amount images!',
+
+    // Languages
     'en' => 'English',
     'nl' => 'Dutch',
 ];

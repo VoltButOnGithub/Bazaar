@@ -170,8 +170,11 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'username' => [
+            'unique' => 'This username is already in use.',
+        ],
+        'url' => [
+            'unique' => 'This url is already in use.',
         ],
     ],
 
