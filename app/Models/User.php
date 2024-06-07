@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Enum\UserTypesEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,9 +52,14 @@ class User extends Authenticatable
         return $this->hasMany(Ad::class);
     }
 
+    public function boughtAds(): HasMany
+    {
+        return $this->hasMany(Ad::class, 'buyer_id');
+    }
+
     public function favourites(): BelongsToMany
     {
-        return $this->belongsToMany(Ad::class, 'favourites' ,'user_id', 'ad_id');
+        return $this->belongsToMany(Ad::class, 'favourites', 'user_id', 'ad_id');
     }
 
     public function reviews(): HasMany
@@ -72,12 +77,22 @@ class User extends Authenticatable
         return $this->hasMany(Lease::class);
     }
 
-    public function hasFavourited(int $id): bool 
+    public function isOwnerOf(int $id): bool
+    {
+        return $this->ads()->where('id', $id)->exists();
+    }
+
+    public function hasBought(int $id): bool
+    {
+        return $this->boughtAds()->where('id', $id)->exists();
+    }
+
+    public function hasFavourited(int $id): bool
     {
         return $this->favourites()->where('ad_id', $id)->exists();
     }
-    
-    public function hasReviewed(int $id, string $type): bool 
+
+    public function hasReviewed(int $id, string $type): bool
     {
         return $this->writtenReviews()->where($type.'_id', $id)->exists();
     }
@@ -89,9 +104,10 @@ class User extends Authenticatable
 
     public function getRatingAttribute(): float
     {
-        if(!$this->reviews()->exists()) {
+        if (! $this->reviews()->exists()) {
             return 0;
         }
+
         return round($this->reviews()->avg('stars'), 1);
     }
 

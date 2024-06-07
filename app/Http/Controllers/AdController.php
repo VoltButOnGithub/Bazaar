@@ -8,17 +8,13 @@ use App\Models\Ad;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
-
-use function PHPUnit\Framework\isNull;
 
 class AdController extends Controller
 {
     public function create(): View|RedirectResponse
     {
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return redirect('login');
         }
         $adTypeKeys = AdTypesEnum::getKeys();
@@ -30,10 +26,11 @@ class AdController extends Controller
         $adInputDescriptions = [];
         foreach ($adTypeKeys as $key) {
             foreach ($fieldIds as $id) {
-                $adInputLabels[$key . $id] = __($key . '.' . $id);
-                $adInputDescriptions[$key . $id] = __($key . '.' . $id . '_description');
+                $adInputLabels[$key.$id] = __($key.'.'.$id);
+                $adInputDescriptions[$key.$id] = __($key.'.'.$id.'_description');
             }
         }
+
         return view('ad.create', ['relatedAds' => $relatedAds, 'adTypeKeys' => $adTypeKeys, 'adInputLabels' => $adInputLabels, 'adInputDescriptions' => $adInputDescriptions, 'fieldIds' => $fieldIds]);
     }
 
@@ -53,7 +50,7 @@ class AdController extends Controller
             $imageUrls = [];
             $i = 1;
             foreach ($images as $image) {
-                $imageUrls[] = $image->storeAs('public/ad_images', $ad->id . '-' . $i . '.' . $image->extension());
+                $imageUrls[] = $image->storeAs('public/ad_images', $ad->id.'-'.$i.'.'.$image->extension());
                 $i++;
             }
             $ad->images = $imageUrls;
@@ -64,6 +61,7 @@ class AdController extends Controller
                 $ad->relatedAds()->attach($relatedAd);
             }
         }
+
         return redirect()->route('ad', $ad->id);
     }
 
@@ -71,15 +69,11 @@ class AdController extends Controller
     {
         $ad = Ad::find($id);
         $reviews = $ad->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3);
-        if (!$ad) {
+        if (! $ad) {
             abort(404, __('global.ad_not_found'));
         }
-        return view('ad.details', ['ad' => $ad, 'reviews' => $reviews ]);
-    }
 
-    public function buy(int $id)
-    {
-        return 'wow you bought ad  poggers';
+        return view('ad.details', ['ad' => $ad, 'reviews' => $reviews]);
     }
 
     public function index(Request $request): View
@@ -87,11 +81,11 @@ class AdController extends Controller
         $query = Ad::query();
         $request->flash();
 
-        if (!is_null($request->input('search'))) {
-            $query->where('name', 'like', '%' . $request->input('search', '') . '%');
+        if (! is_null($request->input('search'))) {
+            $query->where('name', 'like', '%'.$request->input('search', '').'%');
         }
 
-        if (!is_null($request->input('sort_by'))) {
+        if (! is_null($request->input('sort_by'))) {
             switch ($request->input('sort_by', 'newest')) {
                 case 'newest':
                     $query->orderBy('created_at', 'desc');

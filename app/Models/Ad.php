@@ -20,6 +20,7 @@ class Ad extends Model
         'description',
         'price',
         'images',
+        'buyer_id',
     ];
 
     protected $casts = [
@@ -31,6 +32,11 @@ class Ad extends Model
     ];
 
     public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function buyer(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -57,9 +63,10 @@ class Ad extends Model
 
     public function getRatingAttribute(): float
     {
-        if(!$this->reviews()->exists()) {
+        if (! $this->reviews()->exists()) {
             return 0;
         }
+
         return round($this->reviews()->avg('stars'), 1);
     }
 

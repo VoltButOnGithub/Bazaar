@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Enum\UserTypesEnum;
+use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
@@ -20,7 +20,7 @@ class RegisterRequest extends FormRequest
             'password' => 'required|min:3|max:30',
             'type' => 'required',
             'url' => [
-                'exclude_unless:type,' . UserTypesEnum::BUSINESS->value,
+                'exclude_unless:type,'.UserTypesEnum::BUSINESS->value,
                 'unique:App\Models\Business,url',
                 'max:30',
             ],

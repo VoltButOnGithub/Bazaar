@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enum\UserTypesEnum;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -34,7 +34,7 @@ class UserController extends Controller
 
             $profilePictureUrl = 'public/no_pfp.png';
             if ($request->hasFile('profilePicture')) {
-                $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username . '.' . $request->file('profilePicture')->extension());
+                $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username.'.'.$request->file('profilePicture')->extension());
             }
 
             $user = User::create([
