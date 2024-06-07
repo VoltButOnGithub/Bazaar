@@ -50,6 +50,15 @@ enum AdTypesEnum: int
         };
     }
 
+    public function getPriceLabel(float $price): ?string
+    {
+        return match ($this) {
+            self::SALE => __('global.sale_price', ['price' => $price]),
+            self::AUCTION => __('global.auction_price', ['price' => $price]),
+            self::RENTAL => __('global.rental_price', ['price' => $price]),
+        };
+    }
+
     public function getIcon(): ?string
     {
         return match ($this) {

@@ -49,28 +49,43 @@ return [
     'related_ads_description' => 'Ads related to this ad.',
     'create_ad' => 'Post ad',
     'review' => 'Review',
+    'reviews' => 'Reviews',
     'i_want_to_post_a' => 'I want to post a',
 
     // Sale
     'sale' => 'Sale',
     'sale_buy' => 'Buy',
+    'sale_price' => '€ :price',
     'sale_description' => 'Sell something for your price',
 
     // Auction
     'auction' => 'Auction',
     'auction_buy' => 'Bid',
+    'auction_price' => 'Highest bid: € :price',
     'auction_description' => 'Let people bid',
     'bid' => 'Bid',
 
     // Rental
     'rental' => 'Rental',
     'rental_buy' => 'Rent',
+    'rental_price' => '€ :price per day',
     'rental_description' => 'Rent something out',
     'lease' => 'Lease',
+
+    // Reviews
+    'write_review' => 'Write review',
+    'edit_review' => 'Edit review',
+    'delete_review' => 'Remove review',
+    'message' => 'Message',
+    'message_description' => 'Add a message to your review.',
+    'rating' => 'Rating',
+    'rating_description' => 'How would you rate this?',
+    'post_review' => 'Post review',
 
     // Errors
     'no_image_placeholder' => 'https://placehold.co/100?text=No+image&font=roboto',
     'no_images_placeholder' => 'https://placehold.co/200?text=No+images&font=roboto',
+    'ad_not_found' => 'Ad not found',
     'error_try_again' => 'Something went wrong, try again.',
     'too_many_images' => 'You can\'t upload more than :amount images!',
 

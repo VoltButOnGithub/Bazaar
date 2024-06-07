@@ -12,7 +12,7 @@
                 <x-nav.menu-button :href="route('logout')" icon="heroicon-s-arrow-left-start-on-rectangle"
                                    :text="__('global.logout')" />
                 <x-nav.menu-button :href="route('settings')" icon="heroicon-s-cog-6-tooth" :text="__('global.settings')" />
-                <x-nav.menu-button :href="route('profile', Auth::user()->id)" icon="heroicon-s-user" :text="__('global.profile')" />
+                <x-nav.menu-button :href="route('user.show', Auth::user()->id)" icon="heroicon-s-user" :text="__('global.profile')" />
                 <x-nav.menu-button :href="route('ad.create')" icon="heroicon-s-pencil-square" :text="__('global.create_ad')" color='blue' />
             @endif
             <form id="languageForm" action="{{ route('changeLang') }}" method="post">

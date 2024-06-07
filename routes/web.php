@@ -4,6 +4,7 @@ use App\Http\Controllers\AdController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,19 +24,21 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/register', [UserController::class, 'create'])->name('register');
-Route::post('/register', [UserController::class, 'store']);
+Route::resource('user', UserController::class);
+Route::resource('ad', AdController::class);
 
-Route::get('/profile/{id}', [UserController::class, 'showProfile'])->name('profile');
 Route::get('/settings', [UserController::class, 'showSettings'])->name('settings');
 
 Route::post('/language', [LangController::class, 'changeLang'])->name('changeLang');
 
-Route::get('/ad/create', [AdController::class, 'create'])->name('ad.create');
-Route::post('/ad/create', [AdController::class, 'store']);
-Route::get('/ad/{id}', [AdController::class, 'show'])->name('ad');
+Route::get('/ad/buy/{id}', [AdController::class, 'buy'])->name('ad.buy');
 
 Route::get('/favourite/{id}', [FavouriteController::class, 'favourite'])->name('ad.favourite');
 Route::get('/unfavourite/{id}', [FavouriteController::class, 'unfavourite'])->name('ad.unfavourite');
+
+Route::post('/ad/review/{id}', [ReviewController::class, 'storeAd'])->name('review.ad_create');
+Route::post('/user/review/{id}', [ReviewController::class, 'storeUser'])->name('review.user_create');
+Route::post('/review/update/{id}', [ReviewController::class, 'update'])->name('review.update');
+Route::get('/review/destroy/{id}', [ReviewController::class, 'destroy'])->name('review.delete');
 
 Route::get('/', [AdController::class, 'index'])->name('ads');

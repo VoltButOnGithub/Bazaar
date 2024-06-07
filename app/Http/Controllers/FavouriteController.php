@@ -21,6 +21,9 @@ class FavouriteController extends Controller
         if(!Auth::check()) {
             return redirect()->back();
         }
+        if(Auth::user()->hasFavourited($id)) {
+            return abort(403);
+        }
         Auth::user()->favourites()->attach($id);
         return redirect()->back();
     }
@@ -29,6 +32,9 @@ class FavouriteController extends Controller
     {
         if(!Auth::check()) {
             return redirect()->back();
+        }
+        if(!Auth::user()->hasFavourited($id)) {
+            return abort(403);
         }
         Auth::user()->favourites()->detach($id);
         return redirect()->back();

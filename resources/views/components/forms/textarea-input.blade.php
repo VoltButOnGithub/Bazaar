@@ -9,6 +9,7 @@
     'prefix' => '',
     'required' => false,
     'classes' => '',
+    'value' => '',
 ])
 
 <div id="{{ $id }}" class="{{ $classes }} mb-4">
@@ -22,11 +23,10 @@
         @endif
         <textarea id="{{ $for }}"
                   name="{{ $for }}"
-                  value="{{ old($for) }}"
                   rows="{{ $rows }}"
                   cols="{{ $cols }}"
-                  required="{{ $required }}"
-                  class="@error($for) border-red-500 @enderror w-full rounded border px-3 py-2 text-gray-700 shadow focus:border-blue-400"></textarea>
+                  @if($required)required @endif
+                  class="@error($for) border-red-500 @enderror w-full rounded border px-3 py-2 text-gray-700 shadow focus:border-blue-400">{{ $value }}</textarea>
     </div>
 
     @error($for)

@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
+    public function writtenReviews(): HasMany
+    {
+        return $this->hasMany(Review::class, 'reviewer_id');
+    }
+
     public function leases(): HasMany
     {
         return $this->hasMany(Lease::class);
@@ -70,5 +75,28 @@ class User extends Authenticatable
     public function hasFavourited(int $id): bool 
     {
         return $this->favourites()->where('ad_id', $id)->exists();
+    }
+    
+    public function hasReviewed(int $id, string $type): bool 
+    {
+        return $this->writtenReviews()->where($type.'_id', $id)->exists();
+    }
+
+    public function getReviewOn(int $id, string $type): Review
+    {
+        return $this->writtenReviews()->where($type.'_id', $id)->first();
+    }
+
+    public function getRatingAttribute(): float
+    {
+        if(!$this->reviews()->exists()) {
+            return 0;
+        }
+        return round($this->reviews()->avg('stars'), 1);
+    }
+
+    public function getReviewAmountAttribute(): int
+    {
+        return round($this->reviews()->count());
     }
 }

@@ -30,6 +30,6 @@
             <x-forms.submit-button :text="__('global.login')" />
         </form>
         <span>{{ __('global.no_account_yet') }}</span>
-        <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-700">{{ __('global.start_here') }}</a>
+        <a href="{{ route('user.create') }}" class="text-blue-600 hover:text-blue-700">{{ __('global.start_here') }}</a>
     </div>
 @endsection

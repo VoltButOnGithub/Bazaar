@@ -70,10 +70,16 @@ class AdController extends Controller
     public function show(int $id)
     {
         $ad = Ad::find($id);
+        $reviews = $ad->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3);
         if (!$ad) {
-            abort(404, 'Ad not found');
+            abort(404, __('global.ad_not_found'));
         }
-        return view('ad.details', ['ad' => $ad]);
+        return view('ad.details', ['ad' => $ad, 'reviews' => $reviews ]);
+    }
+
+    public function buy(int $id)
+    {
+        return 'wow you bought ad  poggers';
     }
 
     public function index(Request $request): View
@@ -103,6 +109,8 @@ class AdController extends Controller
                     $query->orderBy('created_at', 'desc');
                     break;
             }
+        } else {
+            $query->orderBy('created_at', 'desc');
         }
 
         $ad_type = $request->input('ad_type', 'all');

@@ -12,7 +12,7 @@
     <header class="sticky top-0 z-50 bg-white shadow-md">
         @include('partials.header')
     </header>
-    <main class="flex flex-grow items-center justify-center">
+    <main class="flex flex-grow lg:ml-32 lg:mr-32 items-center justify-center">
         @yield('content')
     </main>
     <footer>
