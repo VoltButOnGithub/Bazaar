@@ -22,20 +22,46 @@
             @endif
         </div>
 
-            <div class='border-3 flex flex-col md:flex-row items-center justify-between border'>
-                <h2 class="m-2 text-4xl font-semibold">{{ $ad->type->getPriceLabel($ad->highestBid) }}</h2>
+        <div class='border-3 flex flex-col items-center justify-between border md:flex-row'>
+            <span class="m-2 text-4xl font-semibold">{{ $ad->type->getPriceLabel($ad->highestBid) }}</span>
 
-                @if (!$ad->bought)
-                    <x-ads.buy-action-form :ad="$ad" />
-                @else
-                    <a
-                       class="focus:shadow-outline rounded bg-gray-600 px-6 py-4 text-3xl font-bold text-white hover:bg-gray-700 focus:outline-none">
-                        {{ __('global.sold') }}
-                    </a>
-                @endif
-
+            @if (!$ad->bought)
+                <x-ads.buy-action-form :ad="$ad" />
+            @else
+                @auth
+                    @if (Auth::user()->id == $ad->user_id)
+                        <div
+                             class="flex flex-col gap-4 rounded bg-blue-600 px-6 py-6 text-center">
+                            <span class='text-3xl font-bold'>{{ __('global.sold_to') }} </span>
+                            <x-users.card-medium :user="$ad->buyer()->with('reviews')->first()" />
+                        </div>
+                    @else
+                        <a
+                           class="focus:shadow-outline rounded bg-gray-600 px-6 py-4 text-3xl font-bold text-white hover:bg-gray-700 focus:outline-none">
+                            {{ __('global.sold') }}
+                        </a>
+                    @endif
+                @endauth
+            @endif
+            <div class="flex gap-6">
+                @auth
+                    @if (Auth::user()->id == $ad->user_id)
+                        <form action="{{ route('ad.destroy', $ad->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                    class="flex items-center rounded-md bg-red-600 px-3 py-3 text-sm font-medium text-white hover:bg-red-700">
+                                <x-heroicon-s-trash class="h-10 w-10" />
+                                <span class="ml-2 hidden md:block">{{ __('global.delete_ad') }}</span>
+                            </button>
+                        </form>
+                    @endif
+                @endauth
                 <x-ads.favourite-button :adId="$ad->id" />
+                <x-nav.menu-button :href="route('ad.qr', $ad->id)" classes="h-10 w-10" icon="heroicon-s-qr-code"
+                                   :text="__('global.show_qr')" />
             </div>
+        </div>
         <div class="flex flex-col md:flex-row">
             <div class="m-2 flex w-full flex-col md:w-9/12">
                 <h2 class="mb-2 border-gray-500 text-2xl font-semibold">{{ __('global.description') }}</h2>

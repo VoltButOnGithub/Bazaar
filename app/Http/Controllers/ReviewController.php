@@ -22,7 +22,7 @@ class ReviewController extends Controller
             'stars' => $request->stars,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.review_stored'));
     }
 
     public function storeUser(StoreReviewRequest $request, int $id): RedirectResponse
@@ -38,7 +38,7 @@ class ReviewController extends Controller
             'stars' => $request->stars,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.review_stored'));
     }
 
     public function update(StoreReviewRequest $request, int $id): RedirectResponse
@@ -49,13 +49,13 @@ class ReviewController extends Controller
             'stars' => $request->stars,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.review_updated'));
     }
 
     public function destroy(int $id): RedirectResponse
     {
         Review::find($id)->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.review_destroyed'));
     }
 }

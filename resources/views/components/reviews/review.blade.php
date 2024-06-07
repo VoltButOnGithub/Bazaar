@@ -6,7 +6,10 @@
             <img
                  src='{{ $review->reviewer->image ? Storage::url($review->reviewer->image) : __('global.no_image_placeholder') }}'
                  class="m-2 h-12 w-12 rounded" />
-            <h2 class="text-l mb-2 border-gray-500 font-bold">{{ $review->reviewer->name }}</h2>
+            <div class="flex flex-col justify-center">
+                <span class="text-l mb-2 font-bold">{{ $review->reviewer->name }}</span>
+                <span class="mb-2 text-xs font-bold text-gray-500">{{ $review->reviewer->username }}</span>
+            </div>
         </a>
         <div class="flex items-center">
             <x-reviews.rating-full :rating='$review->stars' />
@@ -14,6 +17,6 @@
     </div>
     <div class='flex justify-between'>
         <p>{{ $review->message }} </p>
-        <span class='border rounded'>{{ date('d-m-Y', strtotime($review->updated_at)) }}</span>
+        <span class='rounded border'>{{ date('d-m-Y', strtotime($review->updated_at)) }}</span>
     </div>
 </div>

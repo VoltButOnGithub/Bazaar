@@ -25,6 +25,6 @@ class LeaseController extends Controller
             'start_date' => $request->startDate,
             'end_date' => $request->endDate,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.rented'));
     }
 }

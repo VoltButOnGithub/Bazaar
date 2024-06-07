@@ -5,7 +5,7 @@
 @section('content')
     <div class="rounded border px-10 py-5">
         <h1 class="mb-6 text-center text-2xl font-bold">{{ __('global.create_ad') }}</h1>
-        <form method="POST" action="{{ route('ad.create') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('ad.store') }}" enctype="multipart/form-data">
             @csrf
             @if (session('status'))
                 <div class="mb-4 rounded bg-red-500 p-2 text-white">

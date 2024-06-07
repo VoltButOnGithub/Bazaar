@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Enum\UserTypesEnum;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +24,49 @@ class UserController extends Controller
         return view('account.register');
     }
 
+    public function show(Request $request, int $id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            abort(404, __('global.user_not_found'));
+        }
+        $reviews = $user->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3, ['*'], 'reviewPage');
+        $query = $user->ads();
+        $request->flash();
+
+        if (!is_null($request->input('search'))) {
+            $query->where('name', 'like', '%' . $request->input('search', '') . '%');
+        }
+
+        if (!is_null($request->input('sort_by'))) {
+            switch ($request->input('sort_by', 'newest')) {
+                case 'newest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+                case 'oldest':
+                    $query->orderBy('created_at', 'asc');
+                    break;
+                case 'cheapest':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'most_expensive':
+                    $query->orderBy('price', 'desc');
+                    break;
+                default:
+                    $query->orderBy('created_at', 'desc');
+                    break;
+            }
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        $ad_type = $request->input('ad_type', 'all');
+        if ($ad_type != 'all') {
+            $query->where('type', $ad_type);
+        }
+        return view('user.details', ['user' => $user, 'ad_type' => $ad_type, 'reviews' => $reviews, 'ads' => $query->paginate(8)]);
+    }
+
     public function store(RegisterRequest $request): RedirectResponse
     {
         $request->validated();
@@ -34,7 +79,7 @@ class UserController extends Controller
 
             $profilePictureUrl = 'public/no_pfp.png';
             if ($request->hasFile('profilePicture')) {
-                $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username.'.'.$request->file('profilePicture')->extension());
+                $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username . '.' . $request->file('profilePicture')->extension());
             }
 
             $user = User::create([
@@ -49,6 +94,6 @@ class UserController extends Controller
             Auth::login($user);
         });
 
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.registered'));
     }
 }

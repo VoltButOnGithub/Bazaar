@@ -6,16 +6,17 @@
 
         <div class="flex space-x-4">
 
-            @if (!Auth::check())
+            @guest
                 <x-nav.menu-button :href="route('login')" icon="heroicon-s-user" :text="__('global.login')" color='blue' />
-            @else
+            @endguest
+            @auth
                 <x-nav.menu-button :href="route('logout')" icon="heroicon-s-arrow-left-start-on-rectangle"
                                    :text="__('global.logout')" />
-                <x-nav.menu-button :href="route('settings')" icon="heroicon-s-cog-6-tooth" :text="__('global.settings')" />
+                <x-nav.menu-button :href="route('settings.active_ads')" icon="heroicon-s-cog-6-tooth" :text="__('global.settings')" />
                 <x-nav.menu-button :href="route('user.show', Auth::user()->id)" icon="heroicon-s-user" :text="__('global.profile')" />
                 <x-nav.menu-button :href="route('ad.create')" icon="heroicon-s-pencil-square" :text="__('global.create_ad')" color='blue' />
-            @endif
-            <form id="languageForm" action="{{ route('changeLang') }}" method="post">
+            @endauth
+            <form id="languageForm" action="{{ route('change_lang') }}" method="post">
                 @csrf
                 <select name="lang"
                         class="flex cursor-pointer items-center rounded-md bg-gray-600 px-3 py-3 text-sm font-medium text-white hover:bg-gray-700"

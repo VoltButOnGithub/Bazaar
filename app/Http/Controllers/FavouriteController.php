@@ -17,7 +17,7 @@ class FavouriteController extends Controller
         }
         Auth::user()->favourites()->attach($id);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.added_to_favourites'));
     }
 
     public function unfavourite(int $id): RedirectResponse
@@ -30,6 +30,6 @@ class FavouriteController extends Controller
         }
         Auth::user()->favourites()->detach($id);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.removed_from_favourites'));
     }
 }

@@ -14,6 +14,7 @@ class LoginController extends Controller
         if (auth()->check()) {
             return redirect('/');
         }
+        session(['url.intended' => url()->previous()]);
 
         return view('account.login');
     }
@@ -26,7 +27,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($request->only('username', 'password'), $request->filled('remember'))) {
-            return redirect()->intended('/');
+            return redirect()->intended('/')->with('success', __('global.logged_in'));
         }
 
         return back()->withErrors([
@@ -41,6 +42,6 @@ class LoginController extends Controller
         }
         Auth::logout();
 
-        return redirect('/');
+        return redirect('/')->with('success', __('global.logged_out'));
     }
 }

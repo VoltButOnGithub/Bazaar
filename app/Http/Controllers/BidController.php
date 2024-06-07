@@ -27,7 +27,7 @@ class BidController extends Controller
             'user_id' => Auth::user()->id,
             'amount' => $request->bid,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.bid_placed'));
     }
 
     public function finishAuction(int $id): RedirectResponse
@@ -42,6 +42,6 @@ class BidController extends Controller
         $ad->update([
             'buyer_id' => $ad->highestBidder,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success', __('global.auction_finished'));
     }
 }

@@ -11,12 +11,6 @@
                 <p class="max-w-60 text-pretty mb-4 mt-2 text-xs italic text-red-500">{{ $message }}</p>
             @enderror
 
-            @if (session('status'))
-                <div class="mb-4 rounded bg-red-500 p-2 text-white">
-                    {{ session('status') }}
-                </div>
-            @endif
-
             <x-forms.text-input for="username" :label="__('global.username')" />
             <x-forms.text-input for="password" type="password" :label="__('global.password')" />
 

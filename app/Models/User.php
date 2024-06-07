@@ -115,4 +115,9 @@ class User extends Authenticatable
     {
         return round($this->reviews()->count());
     }
+
+    public function getSoldAmountAttribute(): int
+    {
+        return $this->ads()->whereNotNull('buyer_id')->count();
+    }
 }

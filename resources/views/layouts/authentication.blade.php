@@ -17,7 +17,7 @@
                 <a href="{{ url('/') }}">{{ __('global.bazaar') }}</a>
             </div>
 
-                <form id="languageForm" action="{{ route('changeLang') }}" method="post">
+                <form id="languageForm" action="{{ route('change_lang') }}" method="post">
                     @csrf
                     <select name="lang"
                             class="flex cursor-pointer items-center rounded-md bg-gray-600 px-3 py-3 text-sm font-medium text-white hover:bg-gray-700"

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAdRequest;
 use App\Models\Ad;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -62,18 +63,35 @@ class AdController extends Controller
             }
         }
 
-        return redirect()->route('ad', $ad->id);
+        return redirect()->route('ad.show', $ad->id)->with('success', __('global.ad_stored'));
     }
 
     public function show(int $id)
     {
         $ad = Ad::find($id);
-        $reviews = $ad->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3);
+        if(!$ad) {
+            abort(404, __('global.ad_not_found'));
+        }
+        session(['url.intended' => url()->previous()]);
+        $reviews = $ad->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3, ['*'], 'reviewPage');
         if (! $ad) {
             abort(404, __('global.ad_not_found'));
         }
 
         return view('ad.details', ['ad' => $ad, 'reviews' => $reviews]);
+    }
+
+    public function destroy(int $id): RedirectResponse
+    {
+        Ad::find($id)->delete();
+        return redirect()->intended('/')->with('success', __('global.ad_destroyed'));
+    }
+
+    public function getQr(int $id)
+    {
+        $qrCode = QrCode::size(300)->generate(route('ad.show', ['ad' => $id]));
+
+        return view('ad.qr', ['qrCode' => $qrCode, 'id' => $id]);
     }
 
     public function index(Request $request): View
@@ -113,7 +131,7 @@ class AdController extends Controller
         }
 
         return view('ad.index', [
-            'ads' => $query->paginate(5),
+            'ads' => $query->paginate(8),
             'ad_type' => $ad_type,
         ]);
     }

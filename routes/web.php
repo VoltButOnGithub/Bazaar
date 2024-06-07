@@ -8,6 +8,7 @@ use App\Http\Controllers\LangController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,12 +28,20 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::resource('user', UserController::class);
-Route::resource('ad', AdController::class);
+Route::resources([  'user' => UserController::class, 
+                    'ad' => AdController::class]);
 
-Route::get('/settings', [UserController::class, 'showSettings'])->name('settings');
+Route::get('/ad/qr/{id}', [AdController::class, 'getQr'])->name('ad.qr');
 
-Route::post('/language', [LangController::class, 'changeLang'])->name('changeLang');
+Route::get('/settings/active-ads', [SettingsController::class, 'activeAds'])->name('settings.active_ads');
+Route::get('/settings/active-ads', [SettingsController::class, 'activeAds'])->name('settings.active_ads');
+Route::get('/settings/bought-ads', [SettingsController::class, 'boughtAds'])->name('settings.bought_ads');
+Route::get('/settings/sold-ads', [SettingsController::class, 'soldAds'])->name('settings.sold_ads');
+Route::get('/settings/favourites', [SettingsController::class, 'favourites'])->name('settings.favourites');
+Route::get('/settings/profile', [SettingsController::class, 'editProfile'])->name('profile.edit');
+Route::post('/settings/profile', [SettingsController::class, 'updateProfile'])->name('profile.update');
+
+Route::post('/language', [LangController::class, 'changeLang'])->name('change_lang');
 
 Route::get('/ad/buy/{id}', [BuyController::class, 'buy'])->name('ad.buy');
 Route::post('/ad/bid/{id}', [BidController::class, 'bid'])->name('ad.bid');
