@@ -74,4 +74,25 @@ class Ad extends Model
     {
         return round($this->reviews()->count());
     }
+
+    public function getBoughtAttribute(): bool
+    {
+        return $this->buyer_id != null;
+    }
+
+    public function getHighestBidAttribute(): float
+    {
+        if(!$this->bids()->exists()) {
+            return $this->price;
+        }
+        return $this->bids()->max('amount');
+    }
+
+    public function getHighestBidderAttribute(): int
+    {
+        if(!$this->bids()->exists()) {
+            return $this->user_id;
+        }
+        return $this->bids()->orderBy('amount', 'desc')->first()->user_id;
+    }
 }

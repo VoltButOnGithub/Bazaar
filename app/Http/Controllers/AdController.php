@@ -78,7 +78,7 @@ class AdController extends Controller
 
     public function index(Request $request): View
     {
-        $query = Ad::query();
+        $query = Ad::whereNull('buyer_id');
         $request->flash();
 
         if (! is_null($request->input('search'))) {

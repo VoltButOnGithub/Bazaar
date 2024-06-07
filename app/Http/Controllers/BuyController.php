@@ -13,13 +13,13 @@ class BuyController extends Controller
         if (! Auth::check()) {
             return redirect()->back();
         }
-        if (Auth::user()->isOwnerOf($id) || Auth::user()->hasBought($id)) {
+        $ad = Ad::find($id);
+        if (Auth::user()->isOwnerOf($id) || $ad->bought) {
             return abort(403);
         }
-        Ad::find($id)->update([
+        $ad->update([
             'buyer_id' => Auth::user()->id,
         ]);
-
         return redirect()->back();
     }
 }

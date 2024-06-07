@@ -10,7 +10,7 @@
             @endif
         </div>
         <div class='flex justify-between' >
-            <h2 class="mb-2 text-base font-semibold border-gray-500">€ {{ $ad->price }}</h2>
+            <h2 class="mb-2 text-base font-semibold border-gray-500">€ {{ $ad->highestBid }}</h2>
             <x-dynamic-component :component="$ad->type->getIcon()" class="mr-2 h-6 w-6" />
         </div>
     </div>

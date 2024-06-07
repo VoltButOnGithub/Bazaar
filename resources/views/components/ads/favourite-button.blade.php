@@ -1,7 +1,7 @@
 @props(['adId'])
 
 @if (auth()->check())
-    <div>
+    <div class="m-3">
         @if (auth()->user()->hasFavourited($adId))
             <x-nav.menu-button :href="route('ad.unfavourite', $adId)" classes="h-10 w-10" icon="heroicon-s-heart" />
         @else

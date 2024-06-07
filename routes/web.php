@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\BuyController;
+use App\Http\Controllers\BidController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
@@ -33,6 +35,9 @@ Route::get('/settings', [UserController::class, 'showSettings'])->name('settings
 Route::post('/language', [LangController::class, 'changeLang'])->name('changeLang');
 
 Route::get('/ad/buy/{id}', [BuyController::class, 'buy'])->name('ad.buy');
+Route::post('/ad/bid/{id}', [BidController::class, 'bid'])->name('ad.bid');
+Route::get('/ad/finish/{id}', [BidController::class, 'finishAuction'])->name('ad.finish');
+Route::post('/ad/rent/{id}', [LeaseController::class, 'lease'])->name('ad.rent');
 
 Route::get('/favourite/{id}', [FavouriteController::class, 'favourite'])->name('ad.favourite');
 Route::get('/unfavourite/{id}', [FavouriteController::class, 'unfavourite'])->name('ad.unfavourite');

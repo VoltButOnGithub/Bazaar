@@ -11,6 +11,8 @@ return [
     'oldest' => 'Oldest',
     'cheapest' => 'Cheapest',
     'most_expensive' => 'Most expensive',
+    'from' => 'From',
+    'to' => 'to',
 
     'all_categories' => 'All categories',
     'apply_filters' => 'Apply filters',
@@ -44,6 +46,7 @@ return [
 
     // Ad
     'ad' => 'Ad',
+    'sold' => 'Sold',
     'description' => 'Description',
     'related_ads' => 'Related ads',
     'related_ads_description' => 'Ads related to this ad.',
@@ -60,6 +63,7 @@ return [
 
     // Auction
     'auction' => 'Auction',
+    'finish_auction' => 'Finish auction',
     'auction_buy' => 'Bid',
     'auction_price' => 'Highest bid: € :price',
     'auction_description' => 'Let people bid',
