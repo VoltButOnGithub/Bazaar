@@ -20,6 +20,7 @@ return [
     'to' => 'to',
     'back' => 'Back',
     'show_qr' => 'Show QR code',
+    'calendar' => 'Calendar',
 
     'all_categories' => 'All categories',
     'apply_filters' => 'Apply filters',
@@ -100,6 +101,7 @@ return [
     'rental_price' => '€ :price per day',
     'rental_description' => 'Rent something out',
     'lease' => 'Lease',
+    'already_rented_between' => 'This is already rented out from :start to :end',
 
     // Favourites
     'favourites' => 'Favourites',
