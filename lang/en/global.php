@@ -101,7 +101,12 @@ return [
     'rental_price' => '€ :price per day',
     'rental_description' => 'Rent something out',
     'lease' => 'Lease',
+    'renting' => 'Renting',
+    'renting_out' => 'Renting out',
+    'renting_to' => 'Renting to:',
+    'renting_from' => 'Renting from:',
     'already_rented_between' => 'This is already rented out from :start to :end',
+    'renting_between' => 'From :start to :end',
 
     // Favourites
     'favourites' => 'Favourites',

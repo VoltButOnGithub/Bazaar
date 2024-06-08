@@ -5,7 +5,7 @@ use App\Http\Controllers\BuyController;
 use App\Http\Controllers\BidController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LangController;
-use App\Http\Controllers\CallendarController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReviewController;
@@ -39,7 +39,7 @@ Route::get('/settings/active-ads', [SettingsController::class, 'activeAds'])->na
 Route::get('/settings/bought-ads', [SettingsController::class, 'boughtAds'])->name('settings.bought_ads');
 Route::get('/settings/sold-ads', [SettingsController::class, 'soldAds'])->name('settings.sold_ads');
 Route::get('/settings/favourites', [SettingsController::class, 'favourites'])->name('settings.favourites');
-Route::get('/settings/calendar', [CallendarController::class, 'calendar'])->name('settings.calendar');
+Route::get('/settings/calendar', [CalendarController::class, 'calendar'])->name('settings.calendar');
 Route::get('/settings/profile', [SettingsController::class, 'editProfile'])->name('profile.edit');
 Route::post('/settings/profile', [SettingsController::class, 'updateProfile'])->name('profile.update');
 

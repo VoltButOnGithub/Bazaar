@@ -32,8 +32,8 @@ class LeaseController extends Controller
         Lease::create([
             'ad_id' => $id,
             'user_id' => Auth::user()->id,
-            'start_date' => $request->start,
-            'end_date' => $request->end,
+            'start_date' => $start,
+            'end_date' => $end,
         ]);
         return redirect()->back()->with('success', __('global.rented'));
     }

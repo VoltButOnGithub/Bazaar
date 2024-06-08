@@ -7,6 +7,8 @@
                                :text="__('global.bought_ads')" />
             <x-nav.menu-button :href="route('settings.sold_ads')" icon="heroicon-s-arrow-up-tray"
                                :text="__('global.sold_ads')" />
+            <x-nav.menu-button :href="route('settings.calendar')" icon="heroicon-s-calendar"
+                               :text="__('global.calendar')" />
             <x-nav.menu-button :href="route('settings.favourites')" icon="heroicon-s-heart"
                                :text="__('global.favourites')" />
             <x-nav.menu-button :href="route('profile.edit')" icon="heroicon-s-cog-6-tooth"
