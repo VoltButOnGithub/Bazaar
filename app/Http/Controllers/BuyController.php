@@ -20,6 +20,7 @@ class BuyController extends Controller
         $ad->update([
             'buyer_id' => Auth::user()->id,
         ]);
+
         return redirect()->back()->with('success', __('global.bought'));
     }
 }

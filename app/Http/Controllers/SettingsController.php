@@ -2,22 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Enum\UserTypesEnum;
-use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\User;
 use App\Models\Ad;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class SettingsController extends Controller
 {
-    public function showAdsListWithQuery(Request $request, $query, string $queryName) 
+    public function showAdsListWithQuery(Request $request, $query, string $queryName)
     {
         $request->flash();
         if (! is_null($request->input('search'))) {
@@ -60,53 +55,58 @@ class SettingsController extends Controller
 
     public function activeAds(Request $request): View|RedirectResponse
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect('/');
         }
         $query = Auth::user()->ads()->whereNull('buyer_id');
+
         return $this->showAdsListWithQuery($request, $query, 'active_ads');
     }
 
     public function boughtAds(Request $request): View|RedirectResponse
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect('/');
         }
         $query = Ad::where('buyer_id', Auth::user()->id);
+
         return $this->showAdsListWithQuery($request, $query, 'bought_ads');
     }
 
     public function soldAds(Request $request): View|RedirectResponse
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect('/');
         }
         $query = Auth::user()->ads()->whereNotNull('buyer_id');
+
         return $this->showAdsListWithQuery($request, $query, 'sold_ads');
     }
 
     public function favourites(Request $request): View|RedirectResponse
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return redirect('/');
         }
         $query = Auth::user()->favourites();
+
         return $this->showAdsListWithQuery($request, $query, 'favourites');
     }
 
     public function editProfile(): View
     {
         $user = Auth::user();
+
         return view('settings.profile', ['user' => $user]);
     }
 
-    public function updateProfile(ProfileUpdateRequest $request) : RedirectResponse
+    public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->validated();
         $user = User::find(Auth::user()->id);
 
         if ($request->hasFile('profilePicture')) {
-            $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username . '.' . $request->file('profilePicture')->extension());
+            $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username.'.'.$request->file('profilePicture')->extension());
         } else {
             $profilePictureUrl = $user->image;
         }

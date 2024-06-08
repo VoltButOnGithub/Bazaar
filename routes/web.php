@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdController;
-use App\Http\Controllers\BuyController;
 use App\Http\Controllers\BidController;
+use App\Http\Controllers\BuyController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LangController;
-use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ReviewController;
@@ -29,8 +29,8 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::resources([  'user' => UserController::class, 
-                    'ad' => AdController::class]);
+Route::resources(['user' => UserController::class,
+    'ad' => AdController::class]);
 
 Route::get('/ad/qr/{id}', [AdController::class, 'getQr'])->name('ad.qr');
 

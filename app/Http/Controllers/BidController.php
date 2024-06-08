@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\RedirectResponse;
+
 use App\Http\Requests\BidRequest;
-use App\Models\Bid;
 use App\Models\Ad;
+use App\Models\Bid;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class BidController extends Controller
@@ -27,6 +28,7 @@ class BidController extends Controller
             'user_id' => Auth::user()->id,
             'amount' => $request->bid,
         ]);
+
         return redirect()->back()->with('success', __('global.bid_placed'));
     }
 
@@ -35,13 +37,14 @@ class BidController extends Controller
         if (! Auth::check()) {
             return redirect()->back();
         }
-        if (!Auth::user()->isOwnerOf($id)) {
+        if (! Auth::user()->isOwnerOf($id)) {
             return abort(403);
         }
         $ad = Ad::find($id);
         $ad->update([
             'buyer_id' => $ad->highestBidder,
         ]);
+
         return redirect()->back()->with('success', __('global.auction_finished'));
     }
 }

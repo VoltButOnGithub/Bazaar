@@ -82,17 +82,19 @@ class Ad extends Model
 
     public function getHighestBidAttribute(): float
     {
-        if(!$this->bids()->exists()) {
+        if (! $this->bids()->exists()) {
             return $this->price;
         }
+
         return $this->bids()->max('amount');
     }
 
     public function getHighestBidderAttribute(): int
     {
-        if(!$this->bids()->exists()) {
+        if (! $this->bids()->exists()) {
             return $this->user_id;
         }
+
         return $this->bids()->orderBy('amount', 'desc')->first()->user_id;
     }
 }

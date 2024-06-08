@@ -7,9 +7,9 @@ use App\Http\Requests\StoreAdRequest;
 use App\Models\Ad;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class AdController extends Controller
 {
@@ -69,7 +69,7 @@ class AdController extends Controller
     public function show(int $id)
     {
         $ad = Ad::find($id);
-        if(!$ad) {
+        if (! $ad) {
             abort(404, __('global.ad_not_found'));
         }
         session(['url.intended' => url()->previous()]);
@@ -84,6 +84,7 @@ class AdController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         Ad::find($id)->delete();
+
         return redirect()->intended('/')->with('success', __('global.ad_destroyed'));
     }
 

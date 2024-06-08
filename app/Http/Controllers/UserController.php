@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enum\UserTypesEnum;
 use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,18 +26,18 @@ class UserController extends Controller
     public function show(Request $request, int $id)
     {
         $user = User::find($id);
-        if (!$user) {
+        if (! $user) {
             abort(404, __('global.user_not_found'));
         }
         $reviews = $user->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3, ['*'], 'reviewPage');
         $query = $user->ads();
         $request->flash();
 
-        if (!is_null($request->input('search'))) {
-            $query->where('name', 'like', '%' . $request->input('search', '') . '%');
+        if (! is_null($request->input('search'))) {
+            $query->where('name', 'like', '%'.$request->input('search', '').'%');
         }
 
-        if (!is_null($request->input('sort_by'))) {
+        if (! is_null($request->input('sort_by'))) {
             switch ($request->input('sort_by', 'newest')) {
                 case 'newest':
                     $query->orderBy('created_at', 'desc');
@@ -64,6 +63,7 @@ class UserController extends Controller
         if ($ad_type != 'all') {
             $query->where('type', $ad_type);
         }
+
         return view('user.details', ['user' => $user, 'ad_type' => $ad_type, 'reviews' => $reviews, 'ads' => $query->paginate(8)]);
     }
 
@@ -79,7 +79,7 @@ class UserController extends Controller
 
             $profilePictureUrl = 'public/no_pfp.png';
             if ($request->hasFile('profilePicture')) {
-                $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username . '.' . $request->file('profilePicture')->extension());
+                $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username.'.'.$request->file('profilePicture')->extension());
             }
 
             $user = User::create([
