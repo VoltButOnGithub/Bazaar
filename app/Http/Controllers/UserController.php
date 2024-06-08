@@ -77,7 +77,7 @@ class UserController extends Controller
                 $url = $request->url;
             }
 
-            $profilePictureUrl = 'public/no_pfp.png';
+            $profilePictureUrl = '';
             if ($request->hasFile('profilePicture')) {
                 $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username.'.'.$request->file('profilePicture')->extension());
             }
