@@ -30,7 +30,7 @@ class UserController extends Controller
         if (! $user) {
             abort(404, __('global.user_not_found'));
         }
-        if($user->type->isBusiness()) {
+        if ($user->type->isBusiness()) {
             return redirect($user->business->url);
         }
         $reviews = $user->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3, ['*'], 'reviewPage');
@@ -79,7 +79,7 @@ class UserController extends Controller
             if ($request->hasFile('profilePicture')) {
                 $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username.'.'.$request->file('profilePicture')->extension());
             }
-            
+
             $user = User::create([
                 'name' => $request->name,
                 'username' => $request->username,
@@ -87,24 +87,24 @@ class UserController extends Controller
                 'image' => $profilePictureUrl,
                 'type' => $request->enum('type', UserTypesEnum::class),
             ]);
-            if($user->type->isBusiness()) {
+            if ($user->type->isBusiness()) {
                 $business = Business::create([
                     'user_id' => $user->id,
                     'url' => $request->url,
                     'layout' => [
-                        "1" => [
-                            ["0" => "ads", "text" => null],
-                            ["0" => "nothing", "text" => null],
-                            ["0" => "nothing", "text" => null]
+                        '1' => [
+                            ['0' => 'ads', 'text' => null],
+                            ['0' => 'nothing', 'text' => null],
+                            ['0' => 'nothing', 'text' => null],
                         ],
-                        "2" => [
-                            ["0" => "reviews", "text" => null],
-                            ["0" => "nothing", "text" => null],
-                            ["0" => "nothing", "text" => null]
-                        ]
+                        '2' => [
+                            ['0' => 'reviews', 'text' => null],
+                            ['0' => 'nothing', 'text' => null],
+                            ['0' => 'nothing', 'text' => null],
+                        ],
                     ],
-                    'primary_color' => "#ffffff",
-                    'secondary_color' => "#f6f6f6",
+                    'primary_color' => '#ffffff',
+                    'secondary_color' => '#f6f6f6',
                 ]);
             }
             Auth::login($user);

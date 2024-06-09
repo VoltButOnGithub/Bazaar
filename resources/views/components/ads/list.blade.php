@@ -6,7 +6,7 @@
     'gridClasses' => 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4',
 ])
 
-<div class="flex w-full flex-col items-center text-center">
+<div id="ad-list" class="flex w-full flex-col items-center text-center">
     <form id="queryForm" method="GET" action="{{ route($route, $routeParameter) }}">
         <div class='flex flex-col md:flex-row'>
             <div class='flex'>

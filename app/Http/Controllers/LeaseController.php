@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LeaseRequest;
 use App\Models\Ad;
 use App\Models\Lease;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,7 @@ class LeaseController extends Controller
         }
         $start = $request->startDate;
         $end = $request->endDate;
-        $rented = $ad->leases()->where(function ($query) use ($start, $end) {
+        $rented = $ad->leases()->where(function (Builder $query) use ($start, $end) {
             $query->where('start_date', '<', $end)
                 ->where('end_date', '>', $start);
         })->first();

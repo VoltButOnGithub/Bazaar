@@ -32,13 +32,11 @@ Route::post('/language', [LangController::class, 'changeLang'])->name('change_la
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::get('/ad/qr/{id}', [AdController::class, 'getQr'])->name('ad.qr');
-Route::get('/{url}', [BusinessController::class, 'show'])->name('business.details');
 Route::resources(['user' => UserController::class, 'ad' => AdController::class, 'contract' => ContractController::class]);
 
 Route::middleware([UserLoggedIn::class])->group(function () {
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
     // Reviews
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::post('/ad/review/{id}', [ReviewController::class, 'storeAd'])->name('review.ad_create');
     Route::post('/user/review/{id}', [ReviewController::class, 'storeUser'])->name('review.user_create');
     Route::post('/review/update/{id}', [ReviewController::class, 'update'])->name('review.update');
@@ -70,3 +68,4 @@ Route::middleware([UserLoggedIn::class])->group(function () {
     Route::get('/settings/business/api/destroy/{key}', [BusinessController::class, 'destroyApiKey'])->name('business.destroy_key');
 });
 
+Route::get('/{url}', [BusinessController::class, 'show'])->name('business.details');

@@ -70,6 +70,6 @@ enum AdTypesEnum: int
 
     public static function getKeys(): ?array
     {
-        return array_map(fn ($adType) => strtolower($adType->name), \App\Enum\AdTypesEnum::cases());
+        return array_map(fn (AdtypesEnum $adType) => strtolower($adType->name), \App\Enum\AdTypesEnum::cases());
     }
 }

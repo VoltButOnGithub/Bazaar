@@ -9,10 +9,11 @@ enum UserTypesEnum: int
     case BUSINESS = 2;
     case ADMIN = 3;
 
-    public static function getCases()
+    public static function getCases(): array
     {
         $allCases = self::cases();
-        return array_filter($allCases, function ($case) {
+
+        return array_filter($allCases, function (UserTypesEnum $case) {
             return $case !== self::ADMIN;
         });
     }

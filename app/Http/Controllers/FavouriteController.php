@@ -9,9 +9,6 @@ class FavouriteController extends Controller
 {
     public function favourite(int $id): RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect()->back();
-        }
         if (Auth::user()->hasFavourited($id)) {
             return abort(403);
         }
@@ -22,9 +19,6 @@ class FavouriteController extends Controller
 
     public function unfavourite(int $id): RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect()->back();
-        }
         if (! Auth::user()->hasFavourited($id)) {
             return abort(403);
         }

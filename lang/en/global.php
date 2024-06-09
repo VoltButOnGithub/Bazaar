@@ -161,7 +161,7 @@ return [
     'rating_description' => 'How would you rate this?',
     'post_review' => 'Post review',
 
-    // contracts 
+    // contracts
     'contracts' => 'Contracts',
     'contract_title' => 'Contract title',
     'contract_text' => 'Contract text',

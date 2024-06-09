@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enum\AdTypesEnum;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +18,14 @@ class AdFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::factory()->create();
+
         return [
-            'type' => fake()->randomElement(AdTypesEnum::cases()), // Random ad type
+            'user_id' => $user->id,
+            'type' => fake()->randomElement(AdTypesEnum::cases()),
             'name' => fake()->sentence(),
             'description' => fake()->paragraph(),
-            'price' => fake()->randomFloat(2, 10, 500), // Random price between 10 and 500
+            'price' => fake()->randomFloat(2, 10, 500),
         ];
     }
 }

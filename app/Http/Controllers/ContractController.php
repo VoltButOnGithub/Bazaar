@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contract;
 use App\Http\Requests\StoreContractRequest;
-use App\Http\Requests\UpdateContractRequest;
+use App\Models\Contract;
 use Barryvdh\DomPDF\Facade\PDF;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -15,6 +14,7 @@ class ContractController extends Controller
     public function index(): View
     {
         $contracts = Contract::paginate(5);
+
         return view('contract.index', ['contracts' => $contracts]);
     }
 
@@ -48,6 +48,7 @@ class ContractController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         Contract::find($id)->delete();
+
         return redirect()->back()->with('success', __('global.contract_destroyed'));
     }
 }

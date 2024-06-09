@@ -15,11 +15,11 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-                'id' => $this->id,
-                'name' => $this->name,
-                'rating' => $this->rating,
-                'reviews_amount' => $this->reviewAmount,
-                'reviews' => ReviewResource::collection($this->reviews),
+            'id' => $this->id,
+            'name' => $this->name,
+            'rating' => $this->rating,
+            'reviews_amount' => $this->reviewAmount,
+            'reviews' => ReviewResource::collection($this->reviews),
         ];
     }
 }

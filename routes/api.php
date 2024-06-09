@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdApiController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +13,6 @@ use App\Http\Controllers\AdApiController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
 
 Route::get('/ads', [AdApiController::class, 'ads'])->middleware('auth:sanctum');
 Route::get('/ad/{id}', [AdApiController::class, 'ad'])->middleware('auth:sanctum');

@@ -37,8 +37,8 @@ class AdController extends Controller
         $request->validated();
         $user = Auth::user();
         $ad_type = $request->enum('ad_type', AdTypesEnum::class);
-        if($user->ads()->where('type', $ad_type)->count() > 4) {
-            return redirect()->back()->withErrors(['ad_type'=> __('global.max_ads_of_type', ['type' => $ad_type->getLabel()])]);
+        if ($user->ads()->where('type', $ad_type)->count() > 4) {
+            return redirect()->back()->withErrors(['ad_type' => __('global.max_ads_of_type', ['type' => $ad_type->getLabel()])]);
         }
         $ad = Ad::create([
             'user_id' => $user->id,
@@ -68,7 +68,7 @@ class AdController extends Controller
         return redirect()->route('ad.show', $ad->id)->with('success', __('global.ad_stored'));
     }
 
-    public function show(int $id)
+    public function show(int $id): View
     {
         $ad = Ad::find($id);
         if (! $ad) {
@@ -90,7 +90,7 @@ class AdController extends Controller
         return redirect()->intended('/')->with('success', __('global.ad_destroyed'));
     }
 
-    public function getQr(int $id)
+    public function getQr(int $id): View
     {
         $qrCode = QrCode::size(300)->generate(route('ad.show', ['ad' => $id]));
 

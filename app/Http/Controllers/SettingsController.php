@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Ad;
 use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,7 @@ use Illuminate\View\View;
 
 class SettingsController extends Controller
 {
-    public function showAdsListWithQuery(Request $request, $query, string $queryName)
+    public function showAdsListWithQuery(Request $request, Builder $query, string $queryName): View
     {
         $request->flash();
         if (! is_null($request->input('search'))) {
@@ -84,7 +85,7 @@ class SettingsController extends Controller
     public function editProfile(): View|RedirectResponse
     {
         $user = Auth::user();
-        if($user->type->isBusiness()) {
+        if ($user->type->isBusiness()) {
             return redirect(route('business.edit'));
         }
 
