@@ -74,7 +74,7 @@ class AdController extends Controller
         if (! $ad) {
             abort(404, __('global.ad_not_found'));
         }
-        session(['url.intended' => url()->previous()]);
+        session(['url.intended' => url()->previous('/')]);
         $reviews = $ad->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3, ['*'], 'reviewPage');
         if (! $ad) {
             abort(404, __('global.ad_not_found'));

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('global.create_ad'))
+@section('title', $ad->name))
 
 @section('content')
     <div class="flex w-full flex-col rounded-lg bg-white p-6 shadow-md">

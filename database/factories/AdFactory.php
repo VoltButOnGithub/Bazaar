@@ -23,7 +23,7 @@ class AdFactory extends Factory
         return [
             'user_id' => $user->id,
             'type' => fake()->randomElement(AdTypesEnum::cases()),
-            'name' => fake()->sentence(),
+            'name' => fake()->text(20),
             'description' => fake()->paragraph(),
             'price' => fake()->randomFloat(2, 10, 500),
         ];

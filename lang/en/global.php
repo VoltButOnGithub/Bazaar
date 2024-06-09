@@ -67,6 +67,8 @@ return [
     'business_settings_updated' => 'Business settings updated!',
     'api_keys' => 'Api keys',
     'api_key_generated' => 'Api key generated',
+    'key_name' => 'Key name',
+    'new_key' => 'Save this new key somewhere: ',
     'generate_key' => 'Generate key',
     'destroy_key' => 'Delete key',
     'api_key_destroyed' => 'Key deleted',
@@ -144,7 +146,7 @@ return [
     // Favourites
     'favourites' => 'Favourites',
     'added_to_favourites' => 'Added to favourites',
-    'favourite' => 'Ad to favourites',
+    'favourite' => 'Add to favourites',
     'unfavourite' => 'Remove from favourites',
     'removed_from_favourites' => 'Removed from favourites',
 

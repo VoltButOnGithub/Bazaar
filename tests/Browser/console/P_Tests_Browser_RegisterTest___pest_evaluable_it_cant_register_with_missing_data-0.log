@@ -1,0 +1,8 @@
+[
+    {
+        "level": "SEVERE",
+        "message": "http:\/\/localhost:8000\/user\/create - An invalid form control with name='url' is not focusable.",
+        "source": "rendering",
+        "timestamp": 1717969081294
+    }
+]
