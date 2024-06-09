@@ -17,8 +17,10 @@
                     </div>
                 </div>
                 @if (Auth::user()->id == $user->id)
-                    <x-nav.menu-button :href="route('profile.edit')" icon="heroicon-s-cog-6-tooth"
-                                       :text="__('global.profile_settings')" />
+                    <div class="mx-auto">
+                        <x-nav.menu-button :href="route('profile.edit')" icon="heroicon-s-cog-6-tooth"
+                                           :text="__('global.profile_settings')" />
+                    </div>
                 @endif
             </div>
 

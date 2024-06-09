@@ -1,4 +1,4 @@
-@props(['id', 'name', 'value', 'description', 'checked', 'icon', 'label'])
+@props(['id', 'name', 'value', 'description' => '', 'checked', 'icon', 'label' => ''])
 
 <label for="{{ $id }}"
        class="flex w-72 cursor-pointer items-center rounded-lg border-4 border-gray-300 p-4 transition duration-200 ease-in-out hover:border-blue-400">

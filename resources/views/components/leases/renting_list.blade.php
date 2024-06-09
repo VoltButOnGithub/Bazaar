@@ -2,7 +2,7 @@
 
 <div class="flex w-full flex-col items-center text-center">
     @if ($leases->count() < 1)
-        <p class="mt-4 text-xl">{{ __('global.no_leases_to_display') }}</p>
+        <p class="mt-4 text-xl">{{ __('global.nothing_to_display') }}</p>
     @else
         <div class="flex-col">
             @foreach ($leases as $lease)

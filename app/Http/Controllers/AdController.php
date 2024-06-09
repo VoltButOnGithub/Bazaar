@@ -38,12 +38,17 @@ class AdController extends Controller
     public function store(StoreAdRequest $request): RedirectResponse|View
     {
         $request->validated();
+        $user = Auth::user();
+        $ad_type = $request->enum('ad_type', AdTypesEnum::class);
+        if($user->ads()->where('type', $ad_type)->count() > 4) {
+            return redirect()->back()->withErrors(['ad_type'=> __('global.max_ads_of_type', ['type' => $ad_type->getLabel()])]);
+        }
         $ad = Ad::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => $user->id,
             'name' => $request->ad_name,
             'price' => $request->ad_price,
             'description' => $request->ad_description,
-            'type' => $request->enum('ad_type', AdTypesEnum::class),
+            'type' => $ad_type,
         ]);
         if ($request->hasFile('ad_images')) {
             $images = $request->file('ad_images');

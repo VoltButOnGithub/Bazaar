@@ -7,16 +7,8 @@
         <h1 class="mb-6 text-center text-2xl font-bold">{{ __('global.create_ad') }}</h1>
         <form method="POST" action="{{ route('ad.store') }}" enctype="multipart/form-data">
             @csrf
-            @if (session('status'))
-                <div class="mb-4 rounded bg-red-500 p-2 text-white">
-                    {{ session('status') }}
-                </div>
-            @endif
             @if ($errors->any())
-                <p class="mt-2 text-xs italic text-red-500">{{ __('global.error_try_again') }}</p>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <p class="mb-2 text-xs italic text-red-500">{{ __('global.error_try_again') }}</p>
             @endif
             <x-forms.fancy-radio id="type" name="ad_type" :label="__('global.i_want_to_post_a')" :options="\App\Enum\AdTypesEnum::cases()" />
 

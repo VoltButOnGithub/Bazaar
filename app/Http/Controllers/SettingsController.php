@@ -93,9 +93,12 @@ class SettingsController extends Controller
         return $this->showAdsListWithQuery($request, $query, 'favourites');
     }
 
-    public function editProfile(): View
+    public function editProfile(): View|RedirectResponse
     {
         $user = Auth::user();
+        if($user->type->isBusiness()) {
+            return redirect(route('business.edit'));
+        }
 
         return view('settings.profile', ['user' => $user]);
     }

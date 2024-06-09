@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enum\UserTypesEnum;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Business;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,11 +24,14 @@ class UserController extends Controller
         return view('account.register');
     }
 
-    public function show(Request $request, int $id)
+    public function show(Request $request, int $id): View|RedirectResponse
     {
         $user = User::find($id);
         if (! $user) {
             abort(404, __('global.user_not_found'));
+        }
+        if($user->type->isBusiness()) {
+            return redirect($user->business->url);
         }
         $reviews = $user->reviews()->orderBy('updated_at', 'desc')->simplePaginate(3, ['*'], 'reviewPage');
         $query = $user->ads();
@@ -70,30 +74,42 @@ class UserController extends Controller
     public function store(RegisterRequest $request): RedirectResponse
     {
         $request->validated();
-
         DB::transaction(function () use ($request) {
-            $url = $request->username;
-            if ($request->enum('type', UserTypesEnum::class) == UserTypesEnum::BUSINESS) {
-                $url = $request->url;
-            }
-
             $profilePictureUrl = '';
             if ($request->hasFile('profilePicture')) {
                 $profilePictureUrl = $request->file('profilePicture')->storeAs('public/profile-pictures', $request->username.'.'.$request->file('profilePicture')->extension());
             }
-
+            
             $user = User::create([
                 'name' => $request->name,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
                 'image' => $profilePictureUrl,
                 'type' => $request->enum('type', UserTypesEnum::class),
-                'url' => $url,
             ]);
-
+            if($user->type->isBusiness()) {
+                $business = Business::create([
+                    'user_id' => $user->id,
+                    'url' => $request->url,
+                    'layout' => [
+                        "1" => [
+                            ["0" => "ads", "text" => null],
+                            ["0" => "nothing", "text" => null],
+                            ["0" => "nothing", "text" => null]
+                        ],
+                        "2" => [
+                            ["0" => "reviews", "text" => null],
+                            ["0" => "nothing", "text" => null],
+                            ["0" => "nothing", "text" => null]
+                        ]
+                    ],
+                    'primary_color' => "#ffffff",
+                    'secondary_color' => "#f6f6f6",
+                ]);
+            }
             Auth::login($user);
         });
 
-        return redirect()->back()->with('success', __('global.registered'));
+        return redirect()->intended('/')->with('success', __('global.registered'));
     }
 }

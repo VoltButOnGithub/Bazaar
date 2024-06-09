@@ -34,5 +34,12 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'type' => UserTypesEnum::INDIVIDUAL_ADVERTISER,
         ]);
+
+        User::factory()->create([
+            'name' => 'Admin',
+            'username' => 'Admin',
+            'password' => Hash::make('password'),
+            'type' => UserTypesEnum::ADMIN,
+        ]);
     }
 }

@@ -10,16 +10,22 @@ class Business extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'user_id',
         'url',
         'primary_color',
         'secondary_color',
         'banner_image',
+        'layout',
+        'api_keys',
     ];
 
     protected $casts = [
         'url' => 'string',
+        'layout' => 'array',
+        'api_keys' => 'array',
     ];
 
     public function user(): BelongsTo

@@ -7,13 +7,10 @@
         <h1 class="mb-6 text-center text-2xl font-bold">{{ __('global.register') }}</h1>
         <form method="POST" enctype=multipart/form-data action="{{ route('user.store') }}">
             @csrf
-            @if (session('status'))
-                <div class="mb-4 rounded bg-red-500 p-2 text-white">
-                    {{ session('status') }}
-                </div>
+            @if ($errors->any())
+                <p class="mb-2 text-xs italic text-red-500">{{ __('global.error_try_again') }}</p>
             @endif
-
-            <x-forms.fancy-radio id="userType" name="type" :label="__('global.register_me_as')" :options="\App\Enum\UserTypesEnum::cases()" />
+            <x-forms.fancy-radio id="userType" name="type" :label="__('global.register_me_as')" :options="\App\Enum\UserTypesEnum::getCases()" />
 
             <x-forms.text-input for="name" :label="__('global.name')" :description="__('global.name_description')" />
             <x-forms.text-input for="username" :label="__('global.username')" :description="__('global.username_description')" />

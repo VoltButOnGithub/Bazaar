@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\BidController;
+use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\BuyController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\LeaseController;
@@ -29,10 +31,10 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::resources(['user' => UserController::class,
-    'ad' => AdController::class]);
+Route::resources(['user' => UserController::class, 'ad' => AdController::class, 'contract' => ContractController::class]);
 
 Route::get('/ad/qr/{id}', [AdController::class, 'getQr'])->name('ad.qr');
+Route::get('/{url}', [BusinessController::class, 'show'])->name('ad.qr');
 
 Route::get('/settings/active-ads', [SettingsController::class, 'activeAds'])->name('settings.active_ads');
 Route::get('/settings/active-ads', [SettingsController::class, 'activeAds'])->name('settings.active_ads');
@@ -42,6 +44,11 @@ Route::get('/settings/favourites', [SettingsController::class, 'favourites'])->n
 Route::get('/settings/calendar', [CalendarController::class, 'calendar'])->name('settings.calendar');
 Route::get('/settings/profile', [SettingsController::class, 'editProfile'])->name('profile.edit');
 Route::post('/settings/profile', [SettingsController::class, 'updateProfile'])->name('profile.update');
+Route::get('/settings/business', [BusinessController::class, 'edit'])->name('business.edit');
+Route::post('/settings/business', [BusinessController::class, 'update'])->name('business.update');
+Route::get('/settings/business/api', [BusinessController::class, 'apiKeys'])->name('business.api_keys');
+Route::get('/settings/business/api/generate', [BusinessController::class, 'generateApiKey'])->name('business.generate_key');
+Route::get('/settings/business/api/destroy/{key}', [BusinessController::class, 'destroyApiKey'])->name('business.destroy_key');
 
 Route::post('/language', [LangController::class, 'changeLang'])->name('change_lang');
 

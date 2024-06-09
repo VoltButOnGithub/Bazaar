@@ -1,6 +1,6 @@
-@props(['id', 'name', 'label','options' => []])
+@props(['id', 'name', 'label' => '','options' => []])
 
-<div class="mb-4">
+<div class="p-4 @error($name) border-2 rounded border-red-500 @enderror">
     <label for="{{ $name }}" class="mb-2 mr-2 block text-sm font-bold text-gray-700">{{ $label }}</label>
     @foreach ($options as $option)
         <x-forms.fancy-radio-button
@@ -11,6 +11,9 @@
                                     icon="{{ $option->getIcon() }}"
                                     label="{{ $option->getLabel() }}" />
     @endforeach
+    @error($name)
+        <p class="mt-2 text-xs italic text-red-500">{{ $message }}</p>
+    @enderror
 </div>
 
 <script>

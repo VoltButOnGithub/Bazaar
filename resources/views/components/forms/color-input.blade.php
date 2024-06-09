@@ -4,12 +4,10 @@
     'label' => '',
     'type' => 'text',
     'description' => '',
-    'rows' => '5',
-    'cols' => '18',
+    'value' => '',
     'prefix' => '',
     'required' => false,
     'classes' => '',
-    'value' => '',
 ])
 
 <div id="{{ $id }}" class="{{ $classes }} mb-4">
@@ -21,12 +19,12 @@
             <span
                   class="flex items-center rounded border border-gray-300 bg-gray-300 px-3 py-2 text-xs text-gray-900">{{ $prefix }}</span>
         @endif
-        <textarea id="{{ $for }}"
-                  name="{{ $for }}"
-                  rows="{{ $rows }}"
-                  cols="{{ $cols }}"
-                  @if($required)required @endif
-                  class="@error($for) border-red-500 @enderror w-full rounded border px-3 py-2 text-gray-700 shadow focus:border-blue-400">{{ $value }}</textarea>
+        <input id="{{ $for }}"
+               type="color"
+               name="{{ $for }}"
+               value="{{ $value ? $value : old($for)}}"
+               required="{{ $required }}"
+               class="@error($for) border-red-500 @enderror w-full rounded border px-3 py-2 text-gray-700 shadow focus:border-blue-400">
     </div>
 
     @error($for)

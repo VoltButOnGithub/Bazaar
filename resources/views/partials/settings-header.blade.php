@@ -11,8 +11,15 @@
                                :text="__('global.calendar')" />
             <x-nav.menu-button :href="route('settings.favourites')" icon="heroicon-s-heart"
                                :text="__('global.favourites')" />
-            <x-nav.menu-button :href="route('profile.edit')" icon="heroicon-s-cog-6-tooth"
-                               :text="__('global.profile_settings')" />
+            @if (Auth::user()->type->isBusiness())
+                <x-nav.menu-button :href="route('business.api_keys')" icon="heroicon-s-code-bracket"
+                                   :text="__('global.api_keys')" />
+                <x-nav.menu-button :href="route('business.edit')" icon="heroicon-s-cog-6-tooth"
+                                   :text="__('global.business_settings')" />
+            @else
+                <x-nav.menu-button :href="route('profile.edit')" icon="heroicon-s-cog-6-tooth"
+                                   :text="__('global.profile_settings')" />
+            @endif
         </div>
     </div>
 </nav>

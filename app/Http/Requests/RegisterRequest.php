@@ -23,6 +23,7 @@ class RegisterRequest extends FormRequest
                 'exclude_unless:type,'.UserTypesEnum::BUSINESS->value,
                 'unique:App\Models\Business,url',
                 'max:30',
+                'regex:/^[a-zA-Z0-9-]+$/i',
             ],
         ];
     }
