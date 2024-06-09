@@ -13,9 +13,6 @@ class BidController extends Controller
     public function bid(BidRequest $request, int $id): RedirectResponse
     {
         $request->validated();
-        if (! Auth::check()) {
-            return redirect()->back();
-        }
         $ad = Ad::find($id);
         if (Auth::user()->isOwnerOf($id) || $ad->bought) {
             return abort(403);
@@ -34,9 +31,6 @@ class BidController extends Controller
 
     public function finishAuction(int $id): RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect()->back();
-        }
         if (! Auth::user()->isOwnerOf($id)) {
             return abort(403);
         }

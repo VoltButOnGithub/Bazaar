@@ -10,9 +10,6 @@ class BuyController extends Controller
 {
     public function buy(int $id): RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect()->back();
-        }
         $ad = Ad::find($id);
         if (Auth::user()->isOwnerOf($id) || $ad->bought) {
             return abort(403);

@@ -18,7 +18,8 @@ class BusinessFactory extends Factory
     {
         return [
             'primary_color' => fake()->hexColor(),
-            'secondary_color' => '#002402',
+            'secondary_color' => fake()->hexColor(),
+            'layout' => json_decode('{"1":[{"0":"ads","text":null},{"0":"nothing","text":null},{"0":"nothing","text":null}],"2":[{"0":"reviews","text":null},{"0":"nothing","text":null},{"0":"nothing","text":null}]}'),
         ];
     }
 }

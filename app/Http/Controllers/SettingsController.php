@@ -55,9 +55,6 @@ class SettingsController extends Controller
 
     public function activeAds(Request $request): View|RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect('/');
-        }
         $query = Auth::user()->ads()->whereNull('buyer_id');
 
         return $this->showAdsListWithQuery($request, $query, 'active_ads');
@@ -65,9 +62,6 @@ class SettingsController extends Controller
 
     public function boughtAds(Request $request): View|RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect('/');
-        }
         $query = Ad::where('buyer_id', Auth::user()->id);
 
         return $this->showAdsListWithQuery($request, $query, 'bought_ads');
@@ -75,9 +69,6 @@ class SettingsController extends Controller
 
     public function soldAds(Request $request): View|RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect('/');
-        }
         $query = Auth::user()->ads()->whereNotNull('buyer_id');
 
         return $this->showAdsListWithQuery($request, $query, 'sold_ads');
@@ -85,9 +76,6 @@ class SettingsController extends Controller
 
     public function favourites(Request $request): View|RedirectResponse
     {
-        if (! Auth::check()) {
-            return redirect('/');
-        }
         $query = Auth::user()->favourites();
 
         return $this->showAdsListWithQuery($request, $query, 'favourites');

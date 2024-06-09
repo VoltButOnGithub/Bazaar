@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdController;
+use App\Http\Controllers\AdApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,6 @@ use App\Http\Controllers\AdController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    Route::apiResource('ad', AdController::class);
-    return $request->user();
-});
+
+Route::get('/ads', [AdApiController::class, 'ads'])->middleware('auth:sanctum');
+Route::get('/ad/{id}', [AdApiController::class, 'ad'])->middleware('auth:sanctum');

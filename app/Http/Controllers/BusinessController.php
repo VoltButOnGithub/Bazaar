@@ -14,10 +14,10 @@ class BusinessController extends Controller
     public function show(Request $request, string $url): View
     {
         $business = Business::where('url', $url)->first();
-        $user = User::find($business->user_id);
-        if (!$user) {
-            abort(404, __('global.user_not_found'));
+        if (!$business) {
+            abort(404, __('global.business_not_found'));
         }
+        $user = User::find($business->user_id);
         $reviews = $user
             ->reviews()
             ->orderBy('updated_at', 'desc')
@@ -108,8 +108,12 @@ class BusinessController extends Controller
 
     public function apiKeys(): View
     {
-        $business = Business::find(Auth::user()->id);
-        return view('business.api-keys', ['api_keys' => $business->api_keys]);
+        $user = Auth::user();
+        if (!$user->type->isBusiness()) {
+            return redirect(403);
+        }
+        $newKey = session('new_key', '');
+        return view('business.api-keys', ['api_keys' => $user->tokens, 'new_key' => $newKey]);
     }
 
     public function destroyApiKey(string $token): RedirectResponse
@@ -118,35 +122,19 @@ class BusinessController extends Controller
         if (!$user->type->isBusiness()) {
             return redirect(403);
         }
-        $business = Business::find($user->id);
+        $user->tokens()->where('id', $token)->delete();
         
-        $api_keys = $business->api_keys;
-        $api_keys = array_diff($api_keys, [$token]);
-
-        $business->api_keys = $api_keys;
-        $business->save();
         return redirect()->back()->with('success', __('global.api_key_destroyed'));
     }
 
-    public function generateApiKey(Request $request)
+    public function generateApiKey(Request $request): RedirectResponse
     {
         $user = Auth::user();
         if (!$user->type->isBusiness()) {
             return redirect(403);
         }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-        $business = Business::find($user->id);
-        
-        if (!$business->api_keys) {
-            $business->api_keys = [$token];
-        } else {
-            $api_keys = $business->api_keys;
-            $api_keys[] =$token;
-            $business->api_keys = $api_keys;
-        }
-        $business->save();
-
+        $token = Auth::user()->createToken($request->name)->plainTextToken;
+        session()->flash('new_key', $token);
         return redirect()->back()->with('success', __('global.api_key_generated'));
     }
 }

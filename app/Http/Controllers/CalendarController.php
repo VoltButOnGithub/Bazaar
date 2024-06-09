@@ -11,9 +11,6 @@ class CalendarController extends Controller
 {
     public function calendar(): View
     {
-        if (! Auth::check()) {
-            return redirect()->back();
-        }
         $user = Auth::user();
 
         $renting = $user->leases()->where('end_date', '>=', Carbon::today())->orderBy('start_date', 'asc')->simplePaginate(3, ['*'], 'renting_page');

@@ -182,6 +182,7 @@ return [
     'max_ads_of_type' => 'You\'ve placed the max amount of allowed :type ads!',
     'no_contracts_found' => 'No contracts found',
     'user_not_found' => 'User not found',
+    'business_not_found' => 'Business not found',
     'user_has_no_ads' => 'This user has not placed any ads',
     'user_has_no_reviews' => 'This user has no reviews',
     'ad_has_no_reviews' => 'This ad has no reviews',

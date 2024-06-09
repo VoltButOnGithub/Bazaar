@@ -14,9 +14,6 @@ class LeaseController extends Controller
     {
         $request->validated();
         $request->flash();
-        if (! Auth::check()) {
-            return redirect()->back();
-        }
         $ad = Ad::find($id);
         if (Auth::user()->isOwnerOf($id) || $ad->bought) {
             return abort(403);

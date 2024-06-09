@@ -15,9 +15,6 @@ class AdController extends Controller
 {
     public function create(): View|RedirectResponse
     {
-        if (! auth()->check()) {
-            return redirect('login');
-        }
         $adTypeKeys = AdTypesEnum::getKeys();
         $fieldIds = ['name', 'description', 'price', 'image'];
 

@@ -20,12 +20,14 @@
                         <span class="text-l font-bold">{{ $user->name }}</span>
                         <span class="mb-2 text-xs font-bold text-gray-500">{{ $user->username }}</span>
                         <span class="text-l mb-2">{{ __('global.amount_sold', ['amount' => $user->soldAmount]) }}</span>
+                        @auth
                         @if (Auth::user()->id == $user->id)
                             <div class="mx-auto">
                                 <x-nav.menu-button :href="route('business.edit')" icon="heroicon-s-cog-6-tooth"
                                                    :text="__('global.business_settings')" />
                             </div>
                         @endif
+                        @endauth
                     </div>
                 </div>
             </div>

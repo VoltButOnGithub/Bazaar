@@ -37,9 +37,6 @@ class LoginController extends Controller
 
     public function logout(): RedirectResponse
     {
-        if (! auth()->check()) {
-            return redirect('/');
-        }
         Auth::logout();
 
         return redirect('/')->with('success', __('global.logged_out'));

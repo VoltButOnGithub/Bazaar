@@ -16,12 +16,14 @@
                         <span class="text-l mb-2">{{ __('global.amount_sold', ['amount' => $user->soldAmount]) }}</span>
                     </div>
                 </div>
-                @if (Auth::user()->id == $user->id)
-                    <div class="mx-auto">
-                        <x-nav.menu-button :href="route('profile.edit')" icon="heroicon-s-cog-6-tooth"
-                                           :text="__('global.profile_settings')" />
-                    </div>
-                @endif
+                @auth
+                    @if (Auth::user()->id == $user->id)
+                        <div class="mx-auto">
+                            <x-nav.menu-button :href="route('profile.edit')" icon="heroicon-s-cog-6-tooth"
+                                               :text="__('global.profile_settings')" />
+                        </div>
+                    @endif
+                @endauth
             </div>
 
         </div>
