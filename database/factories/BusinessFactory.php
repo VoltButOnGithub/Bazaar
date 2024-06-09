@@ -19,6 +19,7 @@ class BusinessFactory extends Factory
     public function definition(): array
     {
         $user = User::factory()->create(['type' => UserTypesEnum::BUSINESS]);
+
         return [
             'user_id' => $user->id,
             'url' => $user->username,

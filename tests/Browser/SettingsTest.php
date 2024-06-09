@@ -1,10 +1,8 @@
 <?php
 
-use App\Enum\AdTypesEnum;
 use App\Models\Ad;
 use App\Models\Lease;
 use App\Models\User;
-use Carbon\Carbon;
 use Laravel\Dusk\Browser;
 
 it('can be navigated to', function () {

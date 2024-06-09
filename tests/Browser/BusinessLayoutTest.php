@@ -1,19 +1,16 @@
 <?php
 
-use App\Enum\AdTypesEnum;
 use App\Enum\UserTypesEnum;
 use App\Models\Ad;
 use App\Models\Business;
-use App\Models\Lease;
 use App\Models\User;
-use Carbon\Carbon;
 use Laravel\Dusk\Browser;
 
 it('can show a layout with text, ads, reviews and a pinned ad', function () {
     $this->browse(function (Browser $browser) {
         $user = User::factory()->create(['type' => UserTypesEnum::BUSINESS]);
-        $ad = Ad::factory()->create(['user_id'=> $user]);
-        $text = fake()->realTextBetween(20,30);
+        $ad = Ad::factory()->create(['user_id' => $user]);
+        $text = fake()->realTextBetween(20, 30);
         $business = Business::factory()->create([
             'user_id' => $user->id,
             'layout' => [
@@ -35,7 +32,7 @@ it('can show a layout with text, ads, reviews and a pinned ad', function () {
 it('can show a layout with just a pinned ad', function () {
     $this->browse(function (Browser $browser) {
         $user = User::factory()->create(['type' => UserTypesEnum::BUSINESS]);
-        $ad = Ad::factory()->create(['user_id'=> $user]);
+        $ad = Ad::factory()->create(['user_id' => $user]);
         $business = Business::factory()->create([
             'user_id' => $user->id,
             'layout' => [

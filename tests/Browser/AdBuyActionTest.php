@@ -3,7 +3,6 @@
 use App\Enum\AdTypesEnum;
 use App\Models\Ad;
 use App\Models\User;
-use Carbon\Carbon;
 use Laravel\Dusk\Browser;
 
 it('can bid on an auction', function () {
@@ -15,7 +14,7 @@ it('can bid on an auction', function () {
             ->type('bid', $ad->price + 2)
             ->press(__('global.bid'))
             ->assertSee(__('global.bid_placed'))
-            ->assertSee(__('global.auction_price', ['price' => $ad->price+2]));
+            ->assertSee(__('global.auction_price', ['price' => $ad->price + 2]));
     });
 });
 

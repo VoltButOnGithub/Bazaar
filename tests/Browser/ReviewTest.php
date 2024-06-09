@@ -4,7 +4,6 @@ use App\Enum\AdTypesEnum;
 use App\Models\Ad;
 use App\Models\Review;
 use App\Models\User;
-use Carbon\Carbon;
 use Laravel\Dusk\Browser;
 
 it('shows reviews for rentals', function () {
@@ -78,7 +77,7 @@ it('can edit an existing review', function () {
     $user = User::factory()->create();
     $reviewer = User::factory()->create();
     $review = Review::factory()->create(['user_id' => $user->id, 'reviewer_id' => $reviewer->id, 'stars' => 4]);
-    
+
     $this->browse(function (Browser $browser) use ($user, $reviewer, $review) {
         $browser->loginAs($reviewer->id)
             ->visitRoute('user.show', $user->id)
@@ -93,7 +92,7 @@ it('can delete an existing review', function () {
     $user = User::factory()->create();
     $reviewer = User::factory()->create();
     $review = Review::factory()->create(['user_id' => $user->id, 'reviewer_id' => $reviewer->id]);
-    
+
     $this->browse(function (Browser $browser) use ($user, $reviewer, $review) {
         $browser->loginAs($reviewer->id)
             ->visitRoute('user.show', $user->id)
@@ -105,7 +104,7 @@ it('can delete an existing review', function () {
 
 it('doesnt let users write reviews for themselves', function () {
     $user = User::factory()->create();
-    
+
     $this->browse(function (Browser $browser) use ($user) {
         $browser->loginAs($user->id)
             ->visitRoute('user.show', $user->id)

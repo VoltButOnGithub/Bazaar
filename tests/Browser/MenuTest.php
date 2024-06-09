@@ -1,12 +1,7 @@
 <?php
 
-use App\Enum\AdTypesEnum;
 use App\Enum\UserTypesEnum;
-use App\Models\Ad;
-use App\Models\Business;
-use App\Models\Lease;
 use App\Models\User;
-use Carbon\Carbon;
 use Laravel\Dusk\Browser;
 
 it('shows buttons for admins', function () {

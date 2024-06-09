@@ -1,17 +1,13 @@
 <?php
 
-use App\Enum\AdTypesEnum;
 use App\Enum\UserTypesEnum;
-use App\Models\Ad;
 use App\Models\Business;
-use App\Models\Review;
 use App\Models\User;
-use Carbon\Carbon;
 use Laravel\Dusk\Browser;
 
 it('can be navigated to', function () {
     $this->browse(function (Browser $browser) {
-        $user = User::factory()->create(['type'=> UserTypesEnum::BUSINESS]);
+        $user = User::factory()->create(['type' => UserTypesEnum::BUSINESS]);
         $business = Business::factory()->create(['user_id' => $user->id]);
         $browser
             ->loginAs($user->id)
@@ -24,7 +20,7 @@ it('can be navigated to', function () {
 
 it('can generate a new key', function () {
     $this->browse(function (Browser $browser) {
-        $user = User::factory()->create(['type'=> UserTypesEnum::BUSINESS]);
+        $user = User::factory()->create(['type' => UserTypesEnum::BUSINESS]);
         $business = Business::factory()->create(['user_id' => $user->id]);
         $browser
             ->loginAs($user->id)
@@ -37,7 +33,7 @@ it('can generate a new key', function () {
 
 it('can delete a key', function () {
     $this->browse(function (Browser $browser) {
-        $user = User::factory()->create(['type'=> UserTypesEnum::BUSINESS]);
+        $user = User::factory()->create(['type' => UserTypesEnum::BUSINESS]);
         $business = Business::factory()->create(['user_id' => $user->id]);
         $user->createToken('token');
         $browser

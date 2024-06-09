@@ -70,7 +70,6 @@ it('can sort ads by cheapest', function () {
     });
 });
 
-
 it('can sort ads by most expensive', function () {
     $this->browse(function (Browser $browser) {
         $ad = Ad::factory()->create(['price' => 10, 'created_at' => Carbon::yesterday()]);
